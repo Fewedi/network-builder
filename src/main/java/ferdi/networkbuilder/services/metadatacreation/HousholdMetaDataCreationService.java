@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.services;
+package ferdi.networkbuilder.services.metadatacreation;
 
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class HousholdMetaDataCreationService implements MetaDataCreationService 
         for(List<String> l : datac){
             metaData.put(Long.parseLong(l.get(0)),lineToMetaData(l));
         }
-
+        System.out.println("Metadata generated: - households - local");
     }
     
     public void buildMetaDataGlobal(List<List<String>> data, GeographicHouseholdMetaData metaData){
@@ -30,7 +30,9 @@ public class HousholdMetaDataCreationService implements MetaDataCreationService 
         if(!isCity(datac.get(0))){
             System.out.println("Meta Household: Global Data could not be located");
         }
-        lineToMetaData(datac.get(0));
+
+        lineToMetaData2(datac.get(0),metaData);
+        System.out.println("Metadata generated: - households - global");
     }
 
     private boolean isCity(List<String> l){
@@ -45,8 +47,17 @@ public class HousholdMetaDataCreationService implements MetaDataCreationService 
             l.remove(0);
         }
     }
+
+
+
     private GeographicHouseholdMetaData lineToMetaData(List<String> l ){
         GeographicHouseholdMetaData data = new GeographicHouseholdMetaData();
+        lineToMetaData2(l, data);
+
+        return data;
+    }
+
+    private void lineToMetaData2(List<String> l, GeographicHouseholdMetaData data) {
         data.setGeographicHouseholdMetaData(
                 Long.parseLong(l.get(0)),
                 l.get(1),
@@ -68,6 +79,7 @@ public class HousholdMetaDataCreationService implements MetaDataCreationService 
                 Long.parseLong(l.get(19)),
                 Long.parseLong(l.get(20))
         );
-        return data;
     }
+
+
 }

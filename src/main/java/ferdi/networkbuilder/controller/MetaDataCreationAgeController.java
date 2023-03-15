@@ -2,7 +2,7 @@ package ferdi.networkbuilder.controller;
 
 
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
-import ferdi.networkbuilder.services.AgeMetaDataCreationService;
+import ferdi.networkbuilder.services.metadatacreation.AgeMetaDataCreationService;
 import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package ferdi.networkbuilder.controller;
 
-import ferdi.networkbuilder.services.ExtractionService;
+import ferdi.networkbuilder.services.extraction.ExtractionService;
 import org.springframework.stereotype.Controller;
 
 import java.io.FileNotFoundException;

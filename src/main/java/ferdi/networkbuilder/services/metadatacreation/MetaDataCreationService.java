@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.services;
+package ferdi.networkbuilder.services.metadatacreation;
 
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
 
