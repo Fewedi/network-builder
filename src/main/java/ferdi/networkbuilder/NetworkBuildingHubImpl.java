@@ -27,21 +27,21 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         HashMap<Long, GeographicHouseholdMetaData> metaLocal = metaConfig.getMetaDataLocal();
         GeographicHouseholdMetaData metaGlobal = metaConfig.getMetaDataGlobal();
 
-        String path = "/home/fewedi/Desktop/9_Modellierung_biologischer_Systeme_Data/Rdir";
-        String fileName = "S_AGE_HType_Childrien.csv";
-        List<List<String>> rawData =extractionController.extractDataFromFile(path, fileName);
+        String pathHousehold = metaConfig.getPathDataHousehold();
+        String fileNameHousehold = metaConfig.getFileNameHousehold();
+        List<List<String>> rawData =extractionController.extractDataFromFile(pathHousehold, fileNameHousehold);
         metaDataCreationController.createMetaDataGlobal(rawData, metaGlobal);
         metaDataCreationController.createMetaDataLower(rawData, metaLocal);
 
-        String path2 = "/home/fewedi/Desktop/9_Modellierung_biologischer_Systeme_Data/Rdir";
-        String fileName2 = "S_AGE.csv";
-        List<List<String>> rawData2 =extractionController.extractDataFromFile(path2, fileName2);
+        String pathAge = metaConfig.getPathDataAge();
+        String fileNameAge = metaConfig.getFileNameAge();
+        List<List<String>> rawData2 =extractionController.extractDataFromFile(pathAge, fileNameAge);
 
         metaDataCreationAgeController.createMetaDataLower(rawData2,metaLocal);
         metaDataCreationAgeController.createMetaDataGlobal(rawData2,metaGlobal);
 
-        int maxAgents = 2000;
+        int maxAgents = metaConfig.getMaxAgents();
         Map<Long,List<List<List<AgentCreationData>>>> agentCreationData = agentCreationDataController.buildAgentCreationData(metaLocal,maxAgents);
-        printerController.printOut(agentCreationData,metaLocal);
+        //printerController.printOut(agentCreationData,metaLocal);
     }
 }
