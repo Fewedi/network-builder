@@ -11,8 +11,10 @@ public class MetaConfig {
 
     private final HashMap<Long,GeographicHouseholdMetaData> metaDataLocal;
     private final GeographicHouseholdMetaData metaDataGlobal;
+    private final int maxAgents;
 
     public MetaConfig() {
+        this.maxAgents = 100;
         this.metaDataLocal = new HashMap<>();
         this.metaDataGlobal = new GeographicHouseholdMetaData();
     }

@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.services;
+package ferdi.networkbuilder.services.extraction;
 
 import java.io.FileNotFoundException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.services;
+package ferdi.networkbuilder.services.extraction;
 
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Service
-public class CSVCommaExtractionService implements ExtractionService{
+public class CSVCommaExtractionService implements ExtractionService {
 
     @Override
     public List<List<String>> dataToList(String path, String fileName) throws FileNotFoundException {
@@ -19,6 +19,7 @@ public class CSVCommaExtractionService implements ExtractionService{
                 records.add(getRecordFromLine(scanner.nextLine()));
             }
         }
+        System.out.println("Extraction from " + path + "/" + fileName);
         return records;
     }
 
