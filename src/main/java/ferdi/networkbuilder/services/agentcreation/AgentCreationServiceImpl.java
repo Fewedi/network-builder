@@ -27,6 +27,7 @@ public class AgentCreationServiceImpl implements AgentCreationService {
                         Map<Integer, Agent> agents = createAgentsForOneCreationData(nextId, age);
                         modelFoundation.getFullMap().putAll(agents);
                         modelFoundation.getAgeMap().putAll(agents);
+                        modelFoundation.getAreaMap().putAll(agents);
                     }
                 }
             }

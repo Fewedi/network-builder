@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.model.collections;
+package ferdi.networkbuilder.model.contacts;
 
 import ferdi.networkbuilder.model.agents.Agent;
 

@@ -19,6 +19,8 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
         List<GeographicHouseholdMetaData> valuesList = new ArrayList<>(metaData.values());
         if(valuesList.get(0).getSumAgePopulationFull() > maxAgents){
             agentCount += maxAgents;
+            System.out.println("Area "+ valuesList.get(0).getCduId()+ " size: " + valuesList.get(0).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
+
             map.put(valuesList.get(0).getCduId().intValue(),buildForArea(valuesList.get(0)));
             return map;
         }
@@ -28,7 +30,7 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
 
             agentCount += valuesList.get(i).getSumAgePopulationFull();
             maxAgents -= valuesList.get(i).getSumAgePopulationFull().intValue();
-            System.out.println("current Area aize: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
+            System.out.println("Area "+ valuesList.get(i).getCduId()+ " size: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
             map.put(valuesList.get(i).getCduId().intValue(),buildForArea(valuesList.get(i)));
             i++;
         }
@@ -43,7 +45,7 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
         List<List<AgentCreationData>> l35to49 = buildByAge(35,49,metaData);
         List<List<AgentCreationData>> l50to = buildByAge(50,100,metaData);
 
-        List<List<List<AgentCreationData>>> retList = new ArrayList<List<List<AgentCreationData>>>();
+        List<List<List<AgentCreationData>>> retList = new ArrayList<>();
         retList.add(l0to15);
         retList.add(l16to24);
         retList.add(l25to34);
@@ -61,7 +63,7 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
             AgentCreationData data = new AgentCreationData(i,false,false,area, (int) finalCountL);
             myList.add(data);
         }
-        List<List<AgentCreationData>> listList = new ArrayList<List<AgentCreationData>>() ;
+        List<List<AgentCreationData>> listList = new ArrayList<>() ;
         listList.add(myList);
         return listList;
     }

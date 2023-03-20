@@ -1,17 +1,21 @@
 package ferdi.networkbuilder.model.agents;
 
-import ferdi.networkbuilder.model.collections.FriendList;
+import ferdi.networkbuilder.model.contacts.FriendList;
+import ferdi.networkbuilder.model.contacts.HouseholdList;
 
 public abstract class Agent {
 
 
     private final int id;
     private final short age;
-    private final boolean couple;
+    private boolean couple;
     private final boolean kids;
     private final int area;
 
+    private boolean female;
+
     private final FriendList friendList;
+    private final HouseholdList householdList;
 
     public Agent(int id, short age, boolean couple, boolean kids, int area) {
         this.id = id;
@@ -20,6 +24,7 @@ public abstract class Agent {
         this.kids = kids;
         this.area = area;
         friendList = new FriendList();
+        householdList = new HouseholdList();
     }
 
     public int getId() {
@@ -54,7 +59,9 @@ public abstract class Agent {
     }
 
     public void addFriend(Agent friend) {
-        friendList.add(friend);
+        if(!friendList.contains(friend)){
+            friendList.add(friend);
+        }
     }
 
     public String toStingFriends(){
@@ -63,10 +70,29 @@ public abstract class Agent {
             s.append(friend.getId()).append("|");
         }
         return s.toString();
+    }
 
+    public String toStringHousehold(){
+        StringBuilder s = new StringBuilder(id + ", age: " + age + ", area: " + area + ", kids " + kids + ", couple: " + couple + ": ----- |");
+        for (Agent friend : householdList){
+            s.append(friend.getId()).append(", age: ").append(friend.age).append(", area: ").append(friend.area).append("|");
+        }
+        return s.toString();
     }
 
     public FriendList getFriends() {
         return friendList;
+    }
+
+    public void addHousehold(Agent agent) {
+        householdList.add(agent);
+    }
+
+    public void setFemale(boolean b) {
+        female = b;
+    }
+
+    public void setCouple(boolean b) {
+        couple = b;
     }
 }

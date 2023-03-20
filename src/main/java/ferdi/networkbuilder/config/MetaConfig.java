@@ -15,16 +15,18 @@ public class MetaConfig {
 
     private String pathDataHousehold;
     private String pathDataAge;
+    private String pathDataWorksites;
     private String fileNameHousehold;
     private String fileNameAge;
-
+    private String fileNameWorksites;
     private boolean friendshipsSkewedByAge;
-
     private int friendshipsMinAge;
-
     private int friendshipsSkewedByAgeAgeGroup;
     private int friendshipsBarabasiAlbertGraphM;
 
+    private int livesWithParentsMaxAge;
+
+    private int maxForHighestWorksiteSizeIsNTimesOfMin;
     private final Random random;
     private int seed;
 
@@ -133,5 +135,37 @@ public class MetaConfig {
 
     public GeographicHouseholdMetaData getMetaDataGlobal() {
         return metaDataGlobal;
+    }
+
+    public int getLivesWithParentsMaxAge() {
+        return livesWithParentsMaxAge;
+    }
+
+    public void setLivesWithParentsMaxAge(int livesWithParentsMaxAge) {
+        this.livesWithParentsMaxAge = livesWithParentsMaxAge;
+    }
+
+    public String getPathDataWorksites() {
+        return pathDataWorksites;
+    }
+
+    public void setPathDataWorksites(String pathDataWorksites) {
+        this.pathDataWorksites = pathDataWorksites;
+    }
+
+    public String getFileNameWorksites() {
+        return fileNameWorksites;
+    }
+
+    public void setFileNameWorksites(String fileNameWorksites) {
+        this.fileNameWorksites = fileNameWorksites;
+    }
+
+    public int getMaxForHighestWorksiteSizeIsNTimesOfMin() {
+        return maxForHighestWorksiteSizeIsNTimesOfMin;
+    }
+
+    public void setMaxForHighestWorksiteSizeIsNTimesOfMin(int maxForHighestWorksiteSizeIsNTimesOfMin) {
+        this.maxForHighestWorksiteSizeIsNTimesOfMin = maxForHighestWorksiteSizeIsNTimesOfMin;
     }
 }

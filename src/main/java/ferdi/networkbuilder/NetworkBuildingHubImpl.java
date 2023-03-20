@@ -26,6 +26,7 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         PrinterController printerController = (PrinterController) ctx.getBean("printerController");
         AgentCreationController agentCreationController = (AgentCreationController) ctx.getBean("agentCreationController");
         RelationCreationController relationCreationController = (RelationCreationController) ctx.getBean("relationCreationController");
+        WorksiteCreationController worksiteCreationController = (WorksiteCreationController) ctx.getBean("worksiteCreationController");
 
         HashMap<Long, GeographicHouseholdMetaData> metaLocal = metaConfig.getMetaDataLocal();
         GeographicHouseholdMetaData metaGlobal = metaConfig.getMetaDataGlobal();
@@ -48,8 +49,16 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         //printerController.printOut(agentCreationData,metaLocal);
 
         ModelFoundation modelFoundation = agentCreationController.createAgents(agentCreationData);
-        relationCreationController.buildRelationships(modelFoundation,metaConfig);
+        relationCreationController.buildFriendships(modelFoundation,metaConfig);
         //printerController.printOutRelationships(modelFoundation);
+        relationCreationController.buildHouseHolds(modelFoundation,metaConfig);
+
+        String pathWorksites = metaConfig.getPathDataWorksites();
+        String fileNameWorksites = metaConfig.getFileNameWorksites();
+        List<List<String>> rawDataWorksites =extractionController.extractDataFromFile(pathWorksites, fileNameWorksites);
+
+        worksiteCreationController.createWorksiteTypes(rawDataWorksites,modelFoundation,metaConfig);
+        //System.out.println(rawDataWorksites);
 
 
     }
