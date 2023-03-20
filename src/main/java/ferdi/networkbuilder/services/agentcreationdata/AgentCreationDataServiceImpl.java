@@ -12,27 +12,24 @@ import java.util.Map;
 @Service
 public class AgentCreationDataServiceImpl implements AgentCreationDataService{
     @Override
-    public Map<Long, List<List<List<AgentCreationData>>>> buildAgentCreationData(Map<Long, GeographicHouseholdMetaData> metaData, int maxAgents) {
-        System.out.println("Soon: Count of Agents with certain Attributes generated for " );
+    public Map<Integer, List<List<List<AgentCreationData>>>> buildAgentCreationData(Map<Long, GeographicHouseholdMetaData> metaData, int maxAgents) {
 
         int agentCount = 0;
-        Map<Long, List<List<List<AgentCreationData>>>> map = new HashMap<>();
+        Map<Integer, List<List<List<AgentCreationData>>>> map = new HashMap<>();
         List<GeographicHouseholdMetaData> valuesList = new ArrayList<>(metaData.values());
         if(valuesList.get(0).getSumAgePopulationFull() > maxAgents){
             agentCount += maxAgents;
-            map.put(valuesList.get(0).getCduId(),buildForArea(valuesList.get(0)));
-            //System.out.println("Count of Agents with certain Attributes generated for " +buildForArea(valuesList.get(0)) +" "+ agentCount + " Agents in " + map.size() + " Areas" );
+            map.put(valuesList.get(0).getCduId().intValue(),buildForArea(valuesList.get(0)));
             return map;
         }
         int i = 0;
         while (maxAgents - valuesList.get(i).getSumAgePopulationFull().intValue() > 0 || i >= valuesList.size())
             {
-            //System.out.println("current Area aize: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
 
             agentCount += valuesList.get(i).getSumAgePopulationFull();
             maxAgents -= valuesList.get(i).getSumAgePopulationFull().intValue();
             System.out.println("current Area aize: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
-            map.put(valuesList.get(i).getCduId(),buildForArea(valuesList.get(i)));
+            map.put(valuesList.get(i).getCduId().intValue(),buildForArea(valuesList.get(i)));
             i++;
         }
         System.out.println("Count of Agents with certain Attributes generated for " + agentCount + " Agents in " + map.size() + " Areas" );

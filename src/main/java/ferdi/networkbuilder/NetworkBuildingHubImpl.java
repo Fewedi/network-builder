@@ -4,6 +4,7 @@ import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.controller.*;
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
+import ferdi.networkbuilder.model.collections.ModelFoundation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         MetaDataCreationAgeController metaDataCreationAgeController = (MetaDataCreationAgeController) ctx.getBean("metaDataCreationAgeController");
         AgentCreationDataController agentCreationDataController = (AgentCreationDataController) ctx.getBean("agentCreationDataController");
         PrinterController printerController = (PrinterController) ctx.getBean("printerController");
+        AgentCreationController agentCreationController = (AgentCreationController) ctx.getBean("agentCreationController");
+        RelationCreationController relationCreationController = (RelationCreationController) ctx.getBean("relationCreationController");
 
         HashMap<Long, GeographicHouseholdMetaData> metaLocal = metaConfig.getMetaDataLocal();
         GeographicHouseholdMetaData metaGlobal = metaConfig.getMetaDataGlobal();
@@ -41,7 +44,13 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         metaDataCreationAgeController.createMetaDataGlobal(rawData2,metaGlobal);
 
         int maxAgents = metaConfig.getMaxAgents();
-        Map<Long,List<List<List<AgentCreationData>>>> agentCreationData = agentCreationDataController.buildAgentCreationData(metaLocal,maxAgents);
+        Map<Integer,List<List<List<AgentCreationData>>>> agentCreationData = agentCreationDataController.buildAgentCreationData(metaLocal,maxAgents);
         //printerController.printOut(agentCreationData,metaLocal);
+
+        ModelFoundation modelFoundation = agentCreationController.createAgents(agentCreationData);
+        relationCreationController.buildRelationships(modelFoundation,metaConfig);
+        //printerController.printOutRelationships(modelFoundation);
+
+
     }
 }

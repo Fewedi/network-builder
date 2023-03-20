@@ -17,7 +17,7 @@ public class AgentCreationDataController {
         this.agentCreationDataService = agentCreationDataService;
     }
 
-    public Map<Long, List<List<List<AgentCreationData>>>> buildAgentCreationData (Map<Long, GeographicHouseholdMetaData> metaData, int maxAgents){
+    public Map<Integer, List<List<List<AgentCreationData>>>> buildAgentCreationData (Map<Long, GeographicHouseholdMetaData> metaData, int maxAgents){
         return agentCreationDataService.buildAgentCreationData(metaData,maxAgents);
     }
 }

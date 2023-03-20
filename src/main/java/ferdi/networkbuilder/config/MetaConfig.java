@@ -1,14 +1,11 @@
 package ferdi.networkbuilder.config;
 
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
-
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Random;
 
 @Configuration
 @ConfigurationProperties(prefix = "default")
@@ -21,8 +18,65 @@ public class MetaConfig {
     private String fileNameHousehold;
     private String fileNameAge;
 
+    private boolean friendshipsSkewedByAge;
+
+    private int friendshipsMinAge;
+
+    private int friendshipsSkewedByAgeAgeGroup;
+    private int friendshipsBarabasiAlbertGraphM;
+
+    private final Random random;
+    private int seed;
+
+    public boolean isFriendshipsSkewedByAge() {
+        return friendshipsSkewedByAge;
+    }
+
+    public void setFriendshipsSkewedByAge(boolean friendshipsSkewedByAge) {
+        this.friendshipsSkewedByAge = friendshipsSkewedByAge;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setSeed(int seed) {
+        this.seed = seed;
+        random.setSeed(seed);
+    }
+
+    public int getFriendshipsBarabasiAlbertGraphM() {
+        return friendshipsBarabasiAlbertGraphM;
+    }
+
+    public void setFriendshipsBarabasiAlbertGraphM(int friendshipsBarabasiAlbertGraphM) {
+        this.friendshipsBarabasiAlbertGraphM = friendshipsBarabasiAlbertGraphM;
+    }
+
+    public int getFriendshipsMinAge() {
+        return friendshipsMinAge;
+    }
+
+    public void setFriendshipsMinAge(int friendshipsMinAge) {
+        this.friendshipsMinAge = friendshipsMinAge;
+    }
 
 
+    public boolean isDefaultFriendshipsSkewedByAge() {
+        return friendshipsSkewedByAge;
+    }
+
+    public void setDefaultFriendshipsSkewedByAge(boolean friendshipsSkewedByAge) {
+        this.friendshipsSkewedByAge = friendshipsSkewedByAge;
+    }
+
+    public int getFriendshipsSkewedByAgeAgeGroup() {
+        return friendshipsSkewedByAgeAgeGroup;
+    }
+
+    public void setFriendshipsSkewedByAgeAgeGroup(int friendshipsSkewedByAgeAgeGroup) {
+        this.friendshipsSkewedByAgeAgeGroup = friendshipsSkewedByAgeAgeGroup;
+    }
 
     public int getMaxAgents() {
         return maximalPopulation;
@@ -70,6 +124,7 @@ public class MetaConfig {
     public MetaConfig() {
         this.metaDataLocal = new HashMap<>();
         this.metaDataGlobal = new GeographicHouseholdMetaData();
+        this.random = new Random();
     }
 
     public HashMap<Long, GeographicHouseholdMetaData> getMetaDataLocal() {
