@@ -30,6 +30,85 @@ public class MetaConfig {
     private final Random random;
     private int seed;
 
+    private int workingAge;
+
+    private int classSize;
+
+    private int minAgeForSchool;
+
+    private double customerFacingRatio;
+
+    private boolean classesOfDifferentAgesIfNecessary;
+
+    private int closeColleaguesMin;
+    private int closeColleaguesAverage;
+    private int relativesMin;
+    private int relativesAv;
+
+    public int getRelativesMin() {
+        return relativesMin;
+    }
+
+    public void setRelativesMin(int relativesMin) {
+        this.relativesMin = relativesMin;
+    }
+
+    public int getRelativesAv() {
+        return relativesAv;
+    }
+
+    public void setRelativesAv(int relativesAv) {
+        this.relativesAv = relativesAv;
+    }
+
+    public int getCloseColleaguesMin() {
+        return closeColleaguesMin;
+    }
+
+    public void setCloseColleaguesMin(int closeColleaguesMin) {
+        this.closeColleaguesMin = closeColleaguesMin;
+    }
+
+    public int getCloseColleaguesAverage() {
+        return closeColleaguesAverage;
+    }
+
+    public void setCloseColleaguesAverage(int closeColleaguesAverage) {
+        this.closeColleaguesAverage = closeColleaguesAverage;
+    }
+
+    public boolean isClassesOfDifferentAgesIfNecessary() {
+        return classesOfDifferentAgesIfNecessary;
+    }
+
+    public void setClassesOfDifferentAgesIfNecessary(boolean classesOfDifferentAgesIfNecessary) {
+        this.classesOfDifferentAgesIfNecessary = classesOfDifferentAgesIfNecessary;
+    }
+
+    public int getClassSize() {
+        return classSize;
+    }
+
+    public void setClassSize(int classSize) {
+        this.classSize = classSize;
+    }
+
+    public int getMinAgeForSchool() {
+        return minAgeForSchool;
+    }
+
+    public void setMinAgeForSchool(int minAgeForSchool) {
+        this.minAgeForSchool = minAgeForSchool;
+    }
+
+    public int getWorkingAge() {
+        return workingAge;
+    }
+
+    public void setWorkingAge(int workingAge) {
+        this.workingAge = workingAge;
+    }
+
     public boolean isFriendshipsSkewedByAge() {
         return friendshipsSkewedByAge;
     }
@@ -167,5 +246,13 @@ public class MetaConfig {
 
     public void setMaxForHighestWorksiteSizeIsNTimesOfMin(int maxForHighestWorksiteSizeIsNTimesOfMin) {
         this.maxForHighestWorksiteSizeIsNTimesOfMin = maxForHighestWorksiteSizeIsNTimesOfMin;
+    }
+
+    public double getCustomerFacingRatio() {
+        return customerFacingRatio;
+    }
+
+    public void setCustomerFacingRatio(double customerFacingRatio) {
+        this.customerFacingRatio = customerFacingRatio;
     }
 }

@@ -1,5 +1,6 @@
 package ferdi.networkbuilder.services.agentcreation;
 
+import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import ferdi.networkbuilder.model.agents.Adult;
@@ -16,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AgentCreationServiceImpl implements AgentCreationService {
 
     @Override
-    public ModelFoundation createAgents(Map<Integer,List<List<List<AgentCreationData>>>> data) {
+    public ModelFoundation createAgents(Map<Integer,List<List<List<AgentCreationData>>>> data, MetaConfig config) {
         AtomicInteger nextId = new AtomicInteger(0);
         ModelFoundation modelFoundation = new ModelFoundation();
         for(Map.Entry<Integer,List<List<List<AgentCreationData>>>> areaEntry: data.entrySet()){
@@ -28,6 +29,9 @@ public class AgentCreationServiceImpl implements AgentCreationService {
                         modelFoundation.getFullMap().putAll(agents);
                         modelFoundation.getAgeMap().putAll(agents);
                         modelFoundation.getAreaMap().putAll(agents);
+                        if(age.age() < config.getWorkingAge() && age.age() > config.getMinAgeForSchool()){
+                            modelFoundation.getSchoolMap().putAll(agents);
+                        }
                     }
                 }
             }

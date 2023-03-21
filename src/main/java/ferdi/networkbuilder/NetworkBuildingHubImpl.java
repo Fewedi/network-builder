@@ -48,7 +48,7 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         Map<Integer,List<List<List<AgentCreationData>>>> agentCreationData = agentCreationDataController.buildAgentCreationData(metaLocal,maxAgents);
         //printerController.printOut(agentCreationData,metaLocal);
 
-        ModelFoundation modelFoundation = agentCreationController.createAgents(agentCreationData);
+        ModelFoundation modelFoundation = agentCreationController.createAgents(agentCreationData, metaConfig);
         relationCreationController.buildFriendships(modelFoundation,metaConfig);
         //printerController.printOutRelationships(modelFoundation);
         relationCreationController.buildHouseHolds(modelFoundation,metaConfig);
@@ -58,8 +58,10 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         List<List<String>> rawDataWorksites =extractionController.extractDataFromFile(pathWorksites, fileNameWorksites);
 
         worksiteCreationController.createWorksiteTypes(rawDataWorksites,modelFoundation,metaConfig);
+        relationCreationController.buildWorksites(modelFoundation,metaConfig);
+        relationCreationController.buildSchoolClasses(modelFoundation,metaConfig);
+        relationCreationController.buildRelatives(modelFoundation,metaConfig);
+
         //System.out.println(rawDataWorksites);
-
-
     }
 }

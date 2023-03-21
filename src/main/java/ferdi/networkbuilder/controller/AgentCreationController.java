@@ -1,5 +1,6 @@
 package ferdi.networkbuilder.controller;
 
+import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import ferdi.networkbuilder.services.agentcreation.AgentCreationService;
@@ -16,7 +17,7 @@ public class AgentCreationController {
         this.agentCreationService = agentCreationService;
     }
 
-    public ModelFoundation createAgents(Map<Integer,List<List<List<AgentCreationData>>>> data){
-        return agentCreationService.createAgents(data);
+    public ModelFoundation createAgents(Map<Integer,List<List<List<AgentCreationData>>>> data, MetaConfig config){
+        return agentCreationService.createAgents(data, config);
     }
 }

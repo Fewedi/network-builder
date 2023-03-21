@@ -2,6 +2,10 @@ package ferdi.networkbuilder.model.agents;
 
 import ferdi.networkbuilder.model.contacts.FriendList;
 import ferdi.networkbuilder.model.contacts.HouseholdList;
+import ferdi.networkbuilder.model.contacts.RelativesList;
+import ferdi.networkbuilder.model.groups.SchoolClass;
+import ferdi.networkbuilder.model.groups.Worksite;
+import ferdi.networkbuilder.model.groups.WorksiteCloseColleagueGroup;
 
 public abstract class Agent {
 
@@ -12,10 +16,38 @@ public abstract class Agent {
     private final boolean kids;
     private final int area;
 
+    private SchoolClass schoolClass;
+
     private boolean female;
 
+    private final RelativesList relativesList;
     private final FriendList friendList;
     private final HouseholdList householdList;
+    private Worksite worksite;
+
+    private WorksiteCloseColleagueGroup worksiteCloseColleagueGroup;
+
+    private boolean workCustomerFacing = false;
+
+
+    private boolean works = false;
+    private boolean student = false;
+
+    public boolean isWorks() {
+        return works;
+    }
+
+    public void setWorks(boolean works) {
+        this.works = works;
+    }
+
+    public boolean isStudent() {
+        return student;
+    }
+
+    public void setStudent(boolean student) {
+        this.student = student;
+    }
 
     public Agent(int id, short age, boolean couple, boolean kids, int area) {
         this.id = id;
@@ -25,6 +57,7 @@ public abstract class Agent {
         this.area = area;
         friendList = new FriendList();
         householdList = new HouseholdList();
+        relativesList = new RelativesList();
     }
 
     public int getId() {
@@ -52,10 +85,11 @@ public abstract class Agent {
         return "Agent{" +
                 "id=" + id+
                 ", age=" + age +
-                ", couple=" + couple +
-                ", kids=" + kids +
+                //", couple=" + couple +
+                //", kids=" + kids +
                 ", area=" + area +
-                ", friends=" + friendList + "}";
+                //", friends=" + friendList +
+                "}";
     }
 
     public void addFriend(Agent friend) {
@@ -94,5 +128,45 @@ public abstract class Agent {
 
     public void setCouple(boolean b) {
         couple = b;
+    }
+
+    public void addWorksite(Worksite worksite) {
+        this.worksite = worksite;
+    }
+
+    public boolean isFemale() {
+        return female;
+    }
+
+    public Worksite getWorksite() {
+        return worksite;
+    }
+
+    public SchoolClass getSchoolClass() {
+        return schoolClass;
+    }
+
+    public void setSchoolClass(SchoolClass schoolClass) {
+        this.schoolClass = schoolClass;
+    }
+
+    public boolean isWorkCustomerFacing() {
+        return workCustomerFacing;
+    }
+
+    public void setWorkCustomerFacing(boolean workCustomerFacing) {
+        this.workCustomerFacing = workCustomerFacing;
+    }
+
+    public void setWorksiteCloseColleagueGroup(WorksiteCloseColleagueGroup worksiteCloseColleagueGroup) {
+        this.worksiteCloseColleagueGroup = worksiteCloseColleagueGroup;
+    }
+
+    public HouseholdList getHousehold() {
+        return householdList;
+    }
+
+    public RelativesList getRealtives() {
+        return relativesList;
     }
 }
