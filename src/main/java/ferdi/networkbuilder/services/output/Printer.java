@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.services.printout;
+package ferdi.networkbuilder.services.output;
 
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;

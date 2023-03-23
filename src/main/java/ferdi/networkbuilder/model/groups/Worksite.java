@@ -23,6 +23,10 @@ public class Worksite {
     }
 
 
+    public List<WorksiteCloseColleagueGroup> getGroups() {
+        return groups;
+    }
+
     public void add(Agent agent) {
         employees.add(agent);
     }

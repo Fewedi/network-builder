@@ -4,6 +4,7 @@ import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.controller.*;
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
+import ferdi.networkbuilder.metadata.NetworkSummaryData;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         AgentCreationController agentCreationController = (AgentCreationController) ctx.getBean("agentCreationController");
         RelationCreationController relationCreationController = (RelationCreationController) ctx.getBean("relationCreationController");
         WorksiteCreationController worksiteCreationController = (WorksiteCreationController) ctx.getBean("worksiteCreationController");
+        NetworkSummaryCreationController networkSummaryCreationController = (NetworkSummaryCreationController) ctx.getBean("networkSummaryCreationController");
 
         HashMap<Long, GeographicHouseholdMetaData> metaLocal = metaConfig.getMetaDataLocal();
         GeographicHouseholdMetaData metaGlobal = metaConfig.getMetaDataGlobal();
@@ -62,6 +64,8 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         relationCreationController.buildSchoolClasses(modelFoundation,metaConfig);
         relationCreationController.buildRelatives(modelFoundation,metaConfig);
 
+        NetworkSummaryData summary = networkSummaryCreationController.createNetworkSummary(modelFoundation,metaConfig);
+        System.out.println(summary);
         //System.out.println(rawDataWorksites);
     }
 }

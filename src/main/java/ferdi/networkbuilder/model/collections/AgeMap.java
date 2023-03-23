@@ -29,6 +29,9 @@ public class AgeMap {
         }
     }
 
+    public Map<Short, Map<Integer, Agent>> getAgeMap() {
+        return ageMap;
+    }
 
     public void printOut(){
         System.out.println("AgeMap-Data");

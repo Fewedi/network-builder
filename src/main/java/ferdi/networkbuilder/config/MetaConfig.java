@@ -45,6 +45,16 @@ public class MetaConfig {
     private int relativesMin;
     private int relativesAv;
 
+    private int workingAgeMax;
+
+    public int getWorkingAgeMax() {
+        return workingAgeMax;
+    }
+
+    public void setWorkingAgeMax(int workingAgeMax) {
+        this.workingAgeMax = workingAgeMax;
+    }
+
     public int getRelativesMin() {
         return relativesMin;
     }

@@ -4,7 +4,7 @@ import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
-import ferdi.networkbuilder.services.printout.Printer;
+import ferdi.networkbuilder.services.output.Printer;
 import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;

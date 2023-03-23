@@ -29,7 +29,7 @@ public class AgentCreationServiceImpl implements AgentCreationService {
                         modelFoundation.getFullMap().putAll(agents);
                         modelFoundation.getAgeMap().putAll(agents);
                         modelFoundation.getAreaMap().putAll(agents);
-                        if(age.age() < config.getWorkingAge() && age.age() > config.getMinAgeForSchool()){
+                        if(age.age() < config.getWorkingAge() && age.age() >= config.getMinAgeForSchool()){
                             modelFoundation.getSchoolMap().putAll(agents);
                         }
                     }
