@@ -10,15 +10,19 @@ import java.util.Random;
 @Configuration
 @ConfigurationProperties(prefix = "default")
 public class MetaConfig {
-
     private int maximalPopulation;
-
     private String pathDataHousehold;
     private String pathDataAge;
     private String pathDataWorksites;
     private String fileNameHousehold;
     private String fileNameAge;
     private String fileNameWorksites;
+
+    private String pathOutput;
+    private boolean printNetworkData;
+    private boolean createFileNetworkData;
+
+
     private boolean friendshipsSkewedByAge;
     private int friendshipsMinAge;
     private int friendshipsSkewedByAgeAgeGroup;
@@ -46,6 +50,7 @@ public class MetaConfig {
     private int relativesAv;
 
     private int workingAgeMax;
+
 
     public int getWorkingAgeMax() {
         return workingAgeMax;
@@ -264,5 +269,29 @@ public class MetaConfig {
 
     public void setCustomerFacingRatio(double customerFacingRatio) {
         this.customerFacingRatio = customerFacingRatio;
+    }
+
+    public String getPathOutput() {
+        return pathOutput;
+    }
+
+    public void setPathOutput(String pathOutput) {
+        this.pathOutput = pathOutput;
+    }
+
+    public boolean isPrintNetworkData() {
+        return printNetworkData;
+    }
+
+    public void setPrintNetworkData(boolean printNetworkData) {
+        this.printNetworkData = printNetworkData;
+    }
+
+    public boolean isCreateFileNetworkData() {
+        return createFileNetworkData;
+    }
+
+    public void setCreateFileNetworkData(boolean createFileNetworkData) {
+        this.createFileNetworkData = createFileNetworkData;
     }
 }

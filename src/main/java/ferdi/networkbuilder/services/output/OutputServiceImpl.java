@@ -10,6 +10,9 @@ import ferdi.networkbuilder.model.groups.Worksite;
 import ferdi.networkbuilder.model.groups.WorksiteCloseColleagueGroup;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +36,25 @@ public class OutputServiceImpl implements OutputService{
         setWorksites(modelFoundation,summary,config);
         setHousehold(modelFoundation,summary,config);
         setDemograpic(modelFoundation,summary,config);
+        if(config.isPrintNetworkData()){
+            System.out.println(summary);
+        }
+        if(config.isPrintNetworkData()){
+            try {
+                createFile(summary,config);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return summary;
+    }
+
+    private void createFile(NetworkSummaryData summary, MetaConfig config) throws IOException {
+        String path = config.getPathOutput() + "/" + "Network_Summary.txt";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        writer.write(summary.toString());
+
+        writer.close();
     }
 
     private void setDemograpic(ModelFoundation modelFoundation, NetworkSummaryData summary, MetaConfig config) {

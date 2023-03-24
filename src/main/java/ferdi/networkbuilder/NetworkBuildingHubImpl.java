@@ -65,7 +65,7 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         relationCreationController.buildRelatives(modelFoundation,metaConfig);
 
         NetworkSummaryData summary = networkSummaryCreationController.createNetworkSummary(modelFoundation,metaConfig);
-        System.out.println(summary);
+        //System.out.println(summary);
         //System.out.println(rawDataWorksites);
     }
 }

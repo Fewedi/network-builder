@@ -40,32 +40,41 @@ public class NetworkSummaryData {
 
     @Override
     public String toString() {
-        return "NetworkSummaryData{" +
-                "\n agentCount=" + agentCount +
-                "\n minors=" + minors +
-                "\n adults=" + adults +
-                "\n livesInCouple=" + livesInCouple +
-                "\n livesAsSingle=" + livesAsSingle +
-                "\n livesWithKids=" + livesWithKids +
-                "\n livesWithoutKids=" + livesWithoutKids +
-                "\n amountAreas=" + amountAreas +
-                "\n area=" + area +
-                "\n friendsSum=" + friendsSum +
-                "\n friends=" + friends +
-                "\n relativesSum=" + relativesSum +
-                "\n relatives=" + relatives +
-                "\n classesAmount=" + classesAmount +
-                "\n kidsInClasses=" + kidsInClasses +
-                "\n schoolClass=" + schoolClass +
-                "\n closeColleaguesGroupsAmount=" + closeColleaguesGroupsAmount +
-                "\n closeColleagues=" + closeColleagues +
-                "\n workingPop=" + workingPop +
-                "\n worksitesAmount=" + worksitesAmount +
-                "\n worksites=" + worksites +
-                "\n amountOfPeopleInHousehold=" + amountOfPeopleInHousehold +
-                "\n household=" + household +
-                "\n demographic=" + demographic +
-                '}';
+        return "SUMMARY OF NETWORK DATA" +
+                "\n ---------------------------------------------------------------------------------------------------------------" +
+                "\n amount of Agents:                   " + agentCount +
+                "\n amount of Minors:                   " + minors +
+                "\n amount of Adults:                   " + adults +
+                "\n of which lives in Household" +
+                "\n --- as Couple:                      " + livesInCouple +
+                "\n --- as Single:                      " + livesAsSingle +
+                "\n --- with kids:                      " + livesWithKids +
+                "\n --- without kids:                   " + livesWithoutKids +
+                "\n data about areas" +
+                "\n --- amount of areas:                " + amountAreas +
+                "\n --- inhabitants in areas:           " + area +
+                "\n data about friendship relations" +
+                "\n --- amount of friendship relations: " + friendsSum +
+                "\n --- friends per agent:              " + friends +
+                "\n data about relative relations" +
+                "\n --- amount of relatives relations:  " + relativesSum +
+                "\n --- relatives per agent:            " + relatives +
+                "\n data about school class relations" +
+                "\n --- amount of school classes:       " + classesAmount +
+                "\n --- all kids in school classes:     " + kidsInClasses +
+                "\n --- kids per class:                 " + schoolClass +
+                "\n data about close colleagues groups at worksites" +
+                "\n --- amount of groups:               " + closeColleaguesGroupsAmount +
+                "\n --- colleagues per group:           " + closeColleagues +
+                "\n data about worksites" +
+                "\n --- amount of working agents:       " + workingPop +
+                "\n --- amount of worksites:            " + worksitesAmount +
+                "\n --- colleagues per worksites:       " + worksites +
+                "\n data about household relations" +
+                "\n --- amount of agents in household:  " + amountOfPeopleInHousehold +
+                "\n --- household relations per agent:  " + household +
+                "\n demographic: " +
+                "\n" + demographic;
     }
 
     public Map<Short, Integer> getDemographic() {

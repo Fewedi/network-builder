@@ -15,7 +15,7 @@ import java.util.*;
 public class WorksiteCreationService implements RelationCreationService{
     @Override
     public void buildRelationships(ModelFoundation modelFoundation, MetaConfig config) {
-        Map<Integer, Agent> workingPop = modelFoundation.getAgeMapRange(config.getWorkingAge(), 100);
+        Map<Integer, Agent> workingPop = modelFoundation.getAgeMapRange(config.getWorkingAge(), config.getWorkingAgeMax());
         ArrayList<Agent> workingPopList = new ArrayList<>();
         for(Map.Entry<Integer,Agent> entry: workingPop.entrySet()){
             workingPopList.add(entry.getValue());
