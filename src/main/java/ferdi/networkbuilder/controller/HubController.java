@@ -1,6 +1,8 @@
 package ferdi.networkbuilder.controller;
 
 import ferdi.networkbuilder.NetworkBuildingHub;
+import ferdi.networkbuilder.model.agents.Agent;
+import ferdi.networkbuilder.model.collections.AgentMap;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
@@ -14,7 +16,8 @@ public class HubController {
     }
 
 
-    public void buildNetwork(ApplicationContext ctx){
-        networkBuildingHub.buildNetwork(ctx);
+    public AgentMap<Agent> buildNetwork(ApplicationContext ctx){
+        return networkBuildingHub.buildNetwork(ctx);
+
     }
 }

@@ -9,7 +9,7 @@ import ferdi.networkbuilder.model.groups.WorksiteCloseColleagueGroup;
 
 public abstract class Agent {
 
-
+    private Health health;
     private final int id;
     private final short age;
     private boolean couple;
@@ -32,6 +32,15 @@ public abstract class Agent {
 
     private boolean works = false;
     private boolean student = false;
+
+
+    public Health getHealth() {
+        return health;
+    }
+
+    public void setHealth(Health health) {
+        this.health = health;
+    }
 
     public boolean isWorks() {
         return works;

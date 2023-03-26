@@ -5,6 +5,8 @@ import ferdi.networkbuilder.controller.*;
 import ferdi.networkbuilder.metadata.AgentCreationData;
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
 import ferdi.networkbuilder.metadata.NetworkSummaryData;
+import ferdi.networkbuilder.model.agents.Agent;
+import ferdi.networkbuilder.model.collections.AgentMap;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import java.util.Map;
 @Service
 public class NetworkBuildingHubImpl implements NetworkBuildingHub{
     @Override
-    public void buildNetwork(ApplicationContext ctx) {
+    public AgentMap<Agent> buildNetwork(ApplicationContext ctx) {
 
         MetaConfig metaConfig = (MetaConfig) ctx.getBean("metaConfig");
         ExtractionController extractionController = (ExtractionController) ctx.getBean("extractionController");
@@ -67,5 +69,6 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         NetworkSummaryData summary = networkSummaryCreationController.createNetworkSummary(modelFoundation,metaConfig);
         //System.out.println(summary);
         //System.out.println(rawDataWorksites);
+        return modelFoundation.getFullMap();
     }
 }

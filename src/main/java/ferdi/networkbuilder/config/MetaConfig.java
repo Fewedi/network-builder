@@ -23,6 +23,11 @@ public class MetaConfig {
     private boolean createFileNetworkData;
 
 
+    private int days;
+    private double initialAmountRecovered;
+    private double initialAmountInfected;
+
+
     private boolean friendshipsSkewedByAge;
     private int friendshipsMinAge;
     private int friendshipsSkewedByAgeAgeGroup;
@@ -51,6 +56,30 @@ public class MetaConfig {
 
     private int workingAgeMax;
 
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public double getInitialAmountRecovered() {
+        return initialAmountRecovered;
+    }
+
+    public void setInitialAmountRecovered(double initialAmountRecovered) {
+        this.initialAmountRecovered = initialAmountRecovered;
+    }
+
+    public double getInitialAmountInfected() {
+        return initialAmountInfected;
+    }
+
+    public void setInitialAmountInfected(double initialAmountInfected) {
+        this.initialAmountInfected = initialAmountInfected;
+    }
 
     public int getWorkingAgeMax() {
         return workingAgeMax;
