@@ -39,7 +39,6 @@ public class InitializationServiceImpl implements InitializationService {
         int susEnd = agents.size()-1;
 
         List<Agent> infList = setHealth(agents,infStart,infEnd, HealthStatus.INCUBATION);
-
         List<Agent> recList = setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED);
         List<Agent> susList = setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE);
     }

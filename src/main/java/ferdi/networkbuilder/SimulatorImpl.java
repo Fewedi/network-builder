@@ -15,5 +15,12 @@ public class SimulatorImpl implements Simulator{
         InitializationController initializationController = (InitializationController) ctx.getBean("initializationController");
         MetaConfig config = (MetaConfig) ctx.getBean("metaConfig");
         initializationController.initialize(agentMap,config);
+        for( int day = 0; day <= config.getDays() ; day++){
+            // Statusänderung
+            // Reaktion, wenn symptome
+            // treffen Kontakte
+            // infektion Kontakte
+            // output generierung
+        }
     }
 }
