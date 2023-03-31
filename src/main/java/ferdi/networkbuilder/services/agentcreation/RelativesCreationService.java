@@ -20,7 +20,7 @@ public class RelativesCreationService implements RelationCreationService {
         }
         int relationsCount = 0;
         int personsWithRelationships = 0;
-        Collections.shuffle(agentList);
+        Collections.shuffle(agentList,config.getRandom());
         for(Map.Entry<Integer,Agent> entry: agents.entrySet()){
             int amount = getBinomialDistributedNr(config.getRandom(),config.getRelativesMin(),config.getRelativesAv()) / 2;
             personsWithRelationships++;

@@ -3,8 +3,8 @@ package ferdi.networkbuilder.services.agentcreation;
 import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
-import ferdi.networkbuilder.model.groups.Worksite;
-import ferdi.networkbuilder.model.groups.WorksiteCloseColleagueGroup;
+import ferdi.networkbuilder.model.contacts.Worksite;
+import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
 import ferdi.networkbuilder.model.groups.WorksiteType;
 import org.springframework.stereotype.Service;
 import org.apache.commons.math3.distribution.BinomialDistribution;
@@ -20,7 +20,7 @@ public class WorksiteCreationService implements RelationCreationService{
         for(Map.Entry<Integer,Agent> entry: workingPop.entrySet()){
             workingPopList.add(entry.getValue());
         }
-        Collections.shuffle(workingPopList);
+        Collections.shuffle(workingPopList,config.getRandom());
 
         int worksiteCounter = 0;
         int worksiteSizeCounter = 0;
@@ -58,7 +58,7 @@ public class WorksiteCreationService implements RelationCreationService{
         int agentCounter = 0;
         for(Worksite worksite: worksites){
             List<Agent> employees = new ArrayList<>(worksite.getEmployees());
-            Collections.shuffle(employees);
+            Collections.shuffle(employees,config.getRandom());
             while(!employees.isEmpty()){
                 int size = getBinomialDistributedNr(config.getRandom(),config.getCloseColleaguesMin(),config.getCloseColleaguesAverage());
                 WorksiteCloseColleagueGroup group = new WorksiteCloseColleagueGroup(size);

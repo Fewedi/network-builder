@@ -1,0 +1,5 @@
+package ferdi.networkbuilder.metadata;
+
+public enum ContactType {
+    HOUSEHOLD,SCHOOL,FRIEND,RELATIONS,WORKPLACEGROUP,WORKPLACE,WORKPLACEPUBLICFACING,RANDOM,NULL
+}

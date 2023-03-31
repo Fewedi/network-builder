@@ -4,7 +4,7 @@ import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import ferdi.networkbuilder.model.collections.SchoolMap;
-import ferdi.networkbuilder.model.groups.SchoolClass;
+import ferdi.networkbuilder.model.contacts.SchoolClass;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -81,7 +81,7 @@ public class SchoolClassCreationService implements RelationCreationService{
     private List<SchoolClass> kidsToClasses(List<Agent> kids, MetaConfig config) {
         List<SchoolClass> classes = new ArrayList<>();
         List<Agent> kids2 = new ArrayList<>(kids);
-        Collections.shuffle(kids2);
+        Collections.shuffle(kids2,config.getRandom());
         while (!kids2.isEmpty()){
             SchoolClass schoolClass = new SchoolClass(config.getClassSize());
             for(int i = 0; i <= config.getClassSize(); i++){

@@ -18,7 +18,7 @@ public class InitializationServiceImpl implements InitializationService {
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
             agents.add(agentEntry.getValue());
         }
-        Collections.shuffle(agents);
+        Collections.shuffle(agents,config.getRandom());
         double initInfected = config.getInitialAmountInfected();
         double initRecovered = config.getInitialAmountRecovered();
         int infStart = 0;
@@ -38,18 +38,39 @@ public class InitializationServiceImpl implements InitializationService {
         int susStart = recEnd + 1;
         int susEnd = agents.size()-1;
 
-        List<Agent> infList = setHealth(agents,infStart,infEnd, HealthStatus.INCUBATION);
-        List<Agent> recList = setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED);
-        List<Agent> susList = setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE);
+        List<Agent> infList = setHealth(agents,infStart,infEnd, HealthStatus.INCUBATION, config);
+        List<Agent> recList = setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED, config);
+        List<Agent> susList = setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE, config);
+
+        System.out.println(infList);
+        initCTA(agents, config);
     }
 
-    private List<Agent> setHealth(List<Agent> agents,int start, int end, HealthStatus status) {
+    private void initCTA(List<Agent> agents, MetaConfig config) {
+        List<Agent> withMinAge = new ArrayList<>();
+        for (Agent agent: agents){
+            if(agent.getAge() >= config.getcTAMinAge()){
+                withMinAge.add(agent);
+            }
+        }
+        Collections.shuffle(withMinAge,config.getRandom());
+        int absoluteCTAUsers = (int) Math.round(config.getcTAUsers() * (double) agents.size());
+        for(int i = 0; i <= absoluteCTAUsers-1 || i< withMinAge.size(); i++){
+            withMinAge.get(i).setUsesCTA(true);
+        }
+    }
+
+    private List<Agent> setHealth(List<Agent> agents,int start, int end, HealthStatus status, MetaConfig config) {
         List<Agent> list = new ArrayList<>();
         for(int i = start; i <= end; i++){
             Agent agent = agents.get(i);
-            agent.setHealth(new Health(status));
-            list.add(agent);
+
+                agent.setHealth(new Health(status,config,agent.getAge()));
+                list.add(agent);
+
         }
+
+
         return  list;
     }
 }

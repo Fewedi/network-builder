@@ -1,12 +1,15 @@
 package ferdi.networkbuilder.config;
 
 import ferdi.networkbuilder.metadata.GeographicHouseholdMetaData;
+import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.RandomGenerator;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
 
 @Configuration
 @ConfigurationProperties(prefix = "default")
@@ -23,6 +26,8 @@ public class MetaConfig {
     private boolean printNetworkData;
     private boolean createFileNetworkData;
 
+    private double cTAUsers;
+    private int cTAMinAge;
 
     private int days;
     private double initialAmountRecovered;
@@ -38,6 +43,7 @@ public class MetaConfig {
 
     private int maxForHighestWorksiteSizeIsNTimesOfMin;
     private final Random random;
+    private final RandomGenerator randomGenerator;
     private int seed;
 
     private int workingAge;
@@ -58,12 +64,33 @@ public class MetaConfig {
     private int workingAgeMax;
 
 
+    private int testRefreshingDays;
+    private double testsPerNDays;
+    private int daysUntilTestsArrive;
+
+    private boolean infectiousWhileIncubation;
+    private int infectiousWhileIncubationDays;
+    private double infectiousWhileIncubationProb;
+
+    private List<Integer> alphaAges;
+    private List<Double> alphaValue;
+
+    private List<Integer> deltaAges;
+    private List<Double> deltaValue;
+
+    private List<Integer> gammaAges;
+    private List<Double> gammaValue;
+    private double gammaFemaleDif;
+    private int isolationTimeIfContact;
+
     private String asymptomaticDist;
     private List<Integer> asymptomaticNormalDurationAges;
     private List<Integer> asymptomaticNormalDurationMean;
     private double asymptomaticNormalSDOfMean;
     private double asymptomaticGammaK;
     private double asymptomaticGammaGamma;
+    private boolean doITestIfIRecovered;
+    private boolean doITestIfIAlreadyTestedPositive;
 
 
 
@@ -99,11 +126,262 @@ public class MetaConfig {
     private double severehosGammaGamma;
 
 
+    private double isolationProbabilityTest;
+
+    private double isolationProbabilityNoTest;
+    private double isolationProbabilityCTAAndRelativesTest;
+    private double isolationProbabilityCTAAndRelativesNoTest;
+    private double testProbabilityILI;
+    private double ILIFracPerWeek;
+    private boolean testPrio;
 
 
+    private int encountersPerWeekRandomYoung;
+    private double encountersPerWeekRandomOld;
+    private int encountersPerWeekOldAge;
+    private int encountersPerWeekSchool;
+    private double encountersPerWeekRelations;
+    private int encountersPerWeekWork;
+    private int encountersPerWeekHousehold;
+    private int encountersPerWeekFriends;
+    private double encountersInSchoolclass;
 
+    private double baselineTransmissionProp;
+    private double transmissionRateHousehold;
+    private double transmissionRateRelatives;
+    private double transmissionRateFriends;
+    private double transmissionRateWork;
+    private double transmissionRateWorkCustomersFacing;
+    private double transmissionRateRandom;
+    private double transmissionRateSchool;
 
+    private double transmissionRandomP;
+    private double transmissionWorkCustomersFacingP;
 
+    private double encountersInFriendsMax;
+
+    private double transmissionReductionHouseholdIsolated;
+
+    public MetaConfig() {
+        this.metaDataLocal = new HashMap<>();
+        this.metaDataGlobal = new GeographicHouseholdMetaData();
+        this.random = new Random();
+        this.randomGenerator = new MersenneTwister();
+    }
+
+    public void setSeed(int seed) {
+        this.seed = seed;
+        random.setSeed(seed);
+        randomGenerator.setSeed(seed);
+    }
+
+    public double getEncountersInFriendsMax() {
+        return encountersInFriendsMax;
+    }
+
+    public void setEncountersInFriendsMax(double encountersInFriendsMax) {
+        this.encountersInFriendsMax = encountersInFriendsMax;
+    }
+
+    public boolean isTestPrio() {
+        return testPrio;
+    }
+
+    public void setTestPrio(boolean testPrio) {
+        this.testPrio = testPrio;
+    }
+
+    public int getIsolationTimeIfContact() {
+        return isolationTimeIfContact;
+    }
+
+    public void setIsolationTimeIfContact(int isolationTimeIfContact) {
+        this.isolationTimeIfContact = isolationTimeIfContact;
+    }
+
+    public boolean isDoITestIfIAlreadyTestedPositive() {
+        return doITestIfIAlreadyTestedPositive;
+    }
+
+    public void setDoITestIfIAlreadyTestedPositive(boolean doITestIfIAlreadyTestedPositive) {
+        this.doITestIfIAlreadyTestedPositive = doITestIfIAlreadyTestedPositive;
+    }
+
+    public boolean isDoITestIfIRecovered() {
+        return doITestIfIRecovered;
+    }
+
+    public void setDoITestIfIRecovered(boolean doITestIfIRecovered) {
+        this.doITestIfIRecovered = doITestIfIRecovered;
+    }
+
+    public int getDaysUntilTestsArrive() {
+        return daysUntilTestsArrive;
+    }
+
+    public void setDaysUntilTestsArrive(int daysUntilTestsArrive) {
+        this.daysUntilTestsArrive = daysUntilTestsArrive;
+    }
+
+    public double getIsolationProbabilityTest() {
+        return isolationProbabilityTest;
+    }
+
+    public void setIsolationProbabilityTest(double isolationProbabilityTest) {
+        this.isolationProbabilityTest = isolationProbabilityTest;
+    }
+
+    public double getIsolationProbabilityNoTest() {
+        return isolationProbabilityNoTest;
+    }
+
+    public void setIsolationProbabilityNoTest(double isolationProbabilityNoTest) {
+        this.isolationProbabilityNoTest = isolationProbabilityNoTest;
+    }
+
+    public double getIsolationProbabilityCTAAndRelativesTest() {
+        return isolationProbabilityCTAAndRelativesTest;
+    }
+
+    public void setIsolationProbabilityCTAAndRelativesTest(double isolationProbabilityCTAAndRelativesTest) {
+        this.isolationProbabilityCTAAndRelativesTest = isolationProbabilityCTAAndRelativesTest;
+    }
+
+    public double getIsolationProbabilityCTAAndRelativesNoTest() {
+        return isolationProbabilityCTAAndRelativesNoTest;
+    }
+
+    public void setIsolationProbabilityCTAAndRelativesNoTest(double isolationProbabilityCTAAndRelativesNoTest) {
+        this.isolationProbabilityCTAAndRelativesNoTest = isolationProbabilityCTAAndRelativesNoTest;
+    }
+
+    public double getTestProbabilityILI() {
+        return testProbabilityILI;
+    }
+
+    public void setTestProbabilityILI(double testProbabilityILI) {
+        this.testProbabilityILI = testProbabilityILI;
+    }
+
+    public double getILIFracPerWeek() {
+        return ILIFracPerWeek;
+    }
+
+    public void setILIFracPerWeek(double ILIFracPerWeek) {
+        this.ILIFracPerWeek = ILIFracPerWeek;
+    }
+
+    public int getTestRefreshingDays() {
+        return testRefreshingDays;
+    }
+
+    public void setTestRefreshingDays(int testRefreshingDays) {
+        this.testRefreshingDays = testRefreshingDays;
+    }
+
+    public double getTestsPerNDays() {
+        return testsPerNDays;
+    }
+
+    public void setTestsPerNDays(double testsPerNDays) {
+        this.testsPerNDays = testsPerNDays;
+    }
+
+    public double getcTAUsers() {
+        return cTAUsers;
+    }
+
+    public void setcTAUsers(double cTAUsers) {
+        this.cTAUsers = cTAUsers;
+    }
+
+    public int getcTAMinAge() {
+        return cTAMinAge;
+    }
+
+    public void setcTAMinAge(int cTAMinAge) {
+        this.cTAMinAge = cTAMinAge;
+    }
+
+    public boolean isInfectiousWhileIncubation() {
+        return infectiousWhileIncubation;
+    }
+
+    public void setInfectiousWhileIncubation(boolean infectiousWhileIncubation) {
+        this.infectiousWhileIncubation = infectiousWhileIncubation;
+    }
+
+    public int getInfectiousWhileIncubationDays() {
+        return infectiousWhileIncubationDays;
+    }
+
+    public void setInfectiousWhileIncubationDays(int infectiousWhileIncubationDays) {
+        this.infectiousWhileIncubationDays = infectiousWhileIncubationDays;
+    }
+
+    public double getInfectiousWhileIncubationProb() {
+        return infectiousWhileIncubationProb;
+    }
+
+    public void setInfectiousWhileIncubationProb(double infectiousWhileIncubationProb) {
+        this.infectiousWhileIncubationProb = infectiousWhileIncubationProb;
+    }
+
+    public List<Integer> getAlphaAges() {
+        return alphaAges;
+    }
+
+    public void setAlphaAges(List<Integer> alphaAges) {
+        this.alphaAges = alphaAges;
+    }
+
+    public List<Double> getAlphaValue() {
+        return alphaValue;
+    }
+
+    public void setAlphaValue(List<Double> alphaValue) {
+        this.alphaValue = alphaValue;
+    }
+
+    public List<Integer> getDeltaAges() {
+        return deltaAges;
+    }
+
+    public void setDeltaAges(List<Integer> deltaAges) {
+        this.deltaAges = deltaAges;
+    }
+
+    public List<Double> getDeltaValue() {
+        return deltaValue;
+    }
+
+    public void setDeltaValue(List<Double> deltaValue) {
+        this.deltaValue = deltaValue;
+    }
+
+    public List<Integer> getGammaAges() {
+        return gammaAges;
+    }
+
+    public void setGammaAges(List<Integer> gammaAges) {
+        this.gammaAges = gammaAges;
+    }
+
+    public List<Double> getGammaValue() {
+        return gammaValue;
+    }
+
+    public void setGammaValue(List<Double> gammaValue) {
+        this.gammaValue = gammaValue;
+    }
+
+    public double getGammaFemaleDif() {
+        return gammaFemaleDif;
+    }
+
+    public void setGammaFemaleDif(double gammaFemaleDif) {
+        this.gammaFemaleDif = gammaFemaleDif;
+    }
 
     public int getDays() {
         return days;
@@ -213,10 +491,9 @@ public class MetaConfig {
         return random;
     }
 
-    public void setSeed(int seed) {
-        this.seed = seed;
-        random.setSeed(seed);
-    }
+    public RandomGenerator getRandomGenerator(){ return randomGenerator;}
+
+
 
     public int getFriendshipsBarabasiAlbertGraphM() {
         return friendshipsBarabasiAlbertGraphM;
@@ -293,12 +570,6 @@ public class MetaConfig {
 
     private final HashMap<Long,GeographicHouseholdMetaData> metaDataLocal;
     private final GeographicHouseholdMetaData metaDataGlobal;
-
-    public MetaConfig() {
-        this.metaDataLocal = new HashMap<>();
-        this.metaDataGlobal = new GeographicHouseholdMetaData();
-        this.random = new Random();
-    }
 
     public HashMap<Long, GeographicHouseholdMetaData> getMetaDataLocal() {
         return metaDataLocal;
@@ -610,5 +881,165 @@ public class MetaConfig {
 
     public void setSeverehosGammaGamma(double severehosGammaGamma) {
         this.severehosGammaGamma = severehosGammaGamma;
+    }
+
+    public int getEncountersPerWeekRandomYoung() {
+        return encountersPerWeekRandomYoung;
+    }
+
+    public void setEncountersPerWeekRandomYoung(int encountersPerWeekRandomYoung) {
+        this.encountersPerWeekRandomYoung = encountersPerWeekRandomYoung;
+    }
+
+    public double getEncountersPerWeekRandomOld() {
+        return encountersPerWeekRandomOld/7.0;
+    }
+
+    public void setEncountersPerWeekRandomOld(double encountersPerWeekRandomOld) {
+        this.encountersPerWeekRandomOld = encountersPerWeekRandomOld;
+    }
+
+    public int getEncountersPerWeekOldAge() {
+        return encountersPerWeekOldAge;
+    }
+
+    public void setEncountersPerWeekOldAge(int encountersPerWeekOldAge) {
+        this.encountersPerWeekOldAge = encountersPerWeekOldAge;
+    }
+
+    public int getEncountersPerWeekSchool() {
+        return encountersPerWeekSchool;
+    }
+
+    public void setEncountersPerWeekSchool(int encountersPerWeekSchool) {
+        this.encountersPerWeekSchool = encountersPerWeekSchool;
+    }
+
+    public double getEncountersPerWeekRelations() {
+        return encountersPerWeekRelations/7.0;
+    }
+
+    public void setEncountersPerWeekRelations(double encountersPerWeekRelations) {
+        this.encountersPerWeekRelations = encountersPerWeekRelations;
+    }
+
+    public int getEncountersPerWeekWork() {
+        return encountersPerWeekWork;
+    }
+
+    public void setEncountersPerWeekWork(int encountersPerWeekWork) {
+        this.encountersPerWeekWork = encountersPerWeekWork;
+    }
+
+    public int getEncountersPerWeekHousehold() {
+        return encountersPerWeekHousehold;
+    }
+
+    public void setEncountersPerWeekHousehold(int encountersPerWeekHousehold) {
+        this.encountersPerWeekHousehold = encountersPerWeekHousehold;
+    }
+
+    public int getEncountersPerWeekFriends() {
+        return encountersPerWeekFriends;
+    }
+
+    public void setEncountersPerWeekFriends(int encountersPerWeekFriends) {
+        this.encountersPerWeekFriends = encountersPerWeekFriends;
+    }
+
+    public double getEncountersInSchoolclass() {
+        return encountersInSchoolclass;
+    }
+
+    public void setEncountersInSchoolclass(double encountersInSchoolclass) {
+        this.encountersInSchoolclass = encountersInSchoolclass;
+    }
+
+    public double getBaselineTransmissionProp() {
+        return baselineTransmissionProp;
+    }
+
+    public void setBaselineTransmissionProp(double baselineTransmissionProp) {
+        this.baselineTransmissionProp = baselineTransmissionProp;
+    }
+
+    public double getTransmissionRateHousehold() {
+        return transmissionRateHousehold;
+    }
+
+    public void setTransmissionRateHousehold(double transmissionRateHousehold) {
+        this.transmissionRateHousehold = transmissionRateHousehold;
+    }
+
+    public double getTransmissionRateRelatives() {
+        return transmissionRateRelatives;
+    }
+
+    public void setTransmissionRateRelatives(double transmissionRateRelatives) {
+        this.transmissionRateRelatives = transmissionRateRelatives;
+    }
+
+    public double getTransmissionRateFriends() {
+        return transmissionRateFriends;
+    }
+
+    public void setTransmissionRateFriends(double transmissionRateFriends) {
+        this.transmissionRateFriends = transmissionRateFriends;
+    }
+
+    public double getTransmissionRateWork() {
+        return transmissionRateWork;
+    }
+
+    public void setTransmissionRateWork(double transmissionRateWork) {
+        this.transmissionRateWork = transmissionRateWork;
+    }
+
+    public double getTransmissionRateWorkCustomersFacing() {
+        return transmissionRateWorkCustomersFacing;
+    }
+
+    public void setTransmissionRateWorkCustomersFacing(double transmissionRateWorkCustomersFacing) {
+        this.transmissionRateWorkCustomersFacing = transmissionRateWorkCustomersFacing;
+    }
+
+    public double getTransmissionRateRandom() {
+        return transmissionRateRandom;
+    }
+
+    public void setTransmissionRateRandom(double transmissionRateRandom) {
+        this.transmissionRateRandom = transmissionRateRandom;
+    }
+
+    public double getTransmissionRateSchool() {
+        return transmissionRateSchool;
+    }
+
+    public void setTransmissionRateSchool(double transmissionRateSchool) {
+        this.transmissionRateSchool = transmissionRateSchool;
+    }
+
+    public double getTransmissionRandomP() {
+        return transmissionRandomP;
+    }
+
+    public void setTransmissionRandomP(double transmissionRandomP) {
+        this.transmissionRandomP = transmissionRandomP;
+    }
+
+    public double getTransmissionWorkCustomersFacingP() {
+        return transmissionWorkCustomersFacingP;
+    }
+
+    public void setTransmissionWorkCustomersFacingP(double transmissionWorkCustomersFacingP) {
+        this.transmissionWorkCustomersFacingP = transmissionWorkCustomersFacingP;
+    }
+
+    public double getTransmissionReductionHouseholdIsolated() {
+        return transmissionReductionHouseholdIsolated;
+    }
+
+    public void setTransmissionReductionHouseholdIsolated(double transmissionReductionHouseholdIsolated) {
+        this.transmissionReductionHouseholdIsolated = transmissionReductionHouseholdIsolated;
     }
 }

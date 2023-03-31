@@ -84,8 +84,8 @@ public class HouseHoldCreationService implements RelationCreationService{
         for(Map.Entry<Integer,Agent> entry: kids.entrySet()){
             kidsList.add(entry.getValue());
         }
-        Collections.shuffle(kidsList);
-        Collections.shuffle(fams);
+        Collections.shuffle(kidsList,rng);
+        Collections.shuffle(fams,rng);
         List<Agent> notassigndkids = new ArrayList<>();
 
         for(int i = 0; i < kidsList.size(); i++){
@@ -125,7 +125,7 @@ public class HouseHoldCreationService implements RelationCreationService{
         for(Map.Entry<Integer,Agent> entry: map.entrySet()){
             list.add(entry.getValue());
         }
-        Collections.shuffle(list);
+        Collections.shuffle(list,rng);
         List<List<Agent>> famList = new ArrayList<>();
         for (Agent f : list) {
             f.setFemale(rng.nextBoolean());
@@ -141,7 +141,7 @@ public class HouseHoldCreationService implements RelationCreationService{
         for(Map.Entry<Integer,Agent> entry: map.entrySet()){
             list.add(entry.getValue());
         }
-        Collections.shuffle(list);
+        Collections.shuffle(list,rng);
         List<List<Agent>> famList = new ArrayList<>();
         for(int i = 0; i < list.size()-1; i = i+2){
             Agent f = list.get(i);

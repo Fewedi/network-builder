@@ -93,7 +93,7 @@ public class FriendshipCreationService implements RelationCreationService {
         for (Map.Entry<Integer,Agent> entry : map.entrySet()){
             set.add(entry.getValue());
         }
-        Collections.shuffle(set);
+        Collections.shuffle(set,rng);
         List<Agent> nodes = new ArrayList<>(n * m);
         Graph<Agent, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 

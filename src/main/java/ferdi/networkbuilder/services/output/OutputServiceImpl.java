@@ -6,8 +6,8 @@ import ferdi.networkbuilder.metadata.SummaryTemplate;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.AgeMap;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
-import ferdi.networkbuilder.model.groups.Worksite;
-import ferdi.networkbuilder.model.groups.WorksiteCloseColleagueGroup;
+import ferdi.networkbuilder.model.contacts.Worksite;
+import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
