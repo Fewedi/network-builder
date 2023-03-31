@@ -57,6 +57,11 @@ public class SimulatorImpl implements Simulator{
             Agent agent = agentEntry.getValue();
             agent.meetAndInfect(areaMap.get(agent.getArea()),config,testCenter,weekday,daySummary);
         }
+        for (Map.Entry<Integer, Agent> agentEntry : agentMap.entrySet()) {
+
+            Agent agent = agentEntry.getValue();
+            agent.applyBeeingInfected(daySummary,config);
+        }
     }
 
     private void printAgents(AgentMap<Agent> agentMap, MetaConfig config, TestCenter testCenter) {

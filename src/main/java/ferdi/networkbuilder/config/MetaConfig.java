@@ -162,6 +162,16 @@ public class MetaConfig {
 
     private double transmissionReductionHouseholdIsolated;
 
+
+    private boolean spread_via_relatives;
+    private boolean spread_via_household;
+    private boolean spread_via_school;
+    private boolean spread_via_friends;
+    private boolean spread_via_random;
+    private boolean spread_via_work_group;
+    private boolean spread_via_work_not_group;
+    private boolean spread_via_work_public_facing;
+
     public MetaConfig() {
         this.metaDataLocal = new HashMap<>();
         this.metaDataGlobal = new GeographicHouseholdMetaData();
@@ -173,6 +183,70 @@ public class MetaConfig {
         this.seed = seed;
         random.setSeed(seed);
         randomGenerator.setSeed(seed);
+    }
+
+    public boolean isSpread_via_relatives() {
+        return spread_via_relatives;
+    }
+
+    public void setSpread_via_relatives(boolean spread_via_relatives) {
+        this.spread_via_relatives = spread_via_relatives;
+    }
+
+    public boolean isSpread_via_household() {
+        return spread_via_household;
+    }
+
+    public void setSpread_via_household(boolean spread_via_household) {
+        this.spread_via_household = spread_via_household;
+    }
+
+    public boolean isSpread_via_school() {
+        return spread_via_school;
+    }
+
+    public void setSpread_via_school(boolean spread_via_school) {
+        this.spread_via_school = spread_via_school;
+    }
+
+    public boolean isSpread_via_friends() {
+        return spread_via_friends;
+    }
+
+    public void setSpread_via_friends(boolean spread_via_friends) {
+        this.spread_via_friends = spread_via_friends;
+    }
+
+    public boolean isSpread_via_random() {
+        return spread_via_random;
+    }
+
+    public void setSpread_via_random(boolean spread_via_random) {
+        this.spread_via_random = spread_via_random;
+    }
+
+    public boolean isSpread_via_work_group() {
+        return spread_via_work_group;
+    }
+
+    public void setSpread_via_work_group(boolean spread_via_work_group) {
+        this.spread_via_work_group = spread_via_work_group;
+    }
+
+    public boolean isSpread_via_work_not_group() {
+        return spread_via_work_not_group;
+    }
+
+    public void setSpread_via_work_not_group(boolean spread_via_work_not_group) {
+        this.spread_via_work_not_group = spread_via_work_not_group;
+    }
+
+    public boolean isSpread_via_work_public_facing() {
+        return spread_via_work_public_facing;
+    }
+
+    public void setSpread_via_work_public_facing(boolean spread_via_work_public_facing) {
+        this.spread_via_work_public_facing = spread_via_work_public_facing;
     }
 
     public double getEncountersInFriendsMax() {

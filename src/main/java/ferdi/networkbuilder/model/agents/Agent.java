@@ -67,61 +67,61 @@ public abstract class Agent {
         if(!health.getHealthStatus().equals(HealthStatus.SEVERE_HOS)){
             if(usesCTA){
                 List<Agent> todaysContacts = new ArrayList<>();
-                if(day<=config.getEncountersPerWeekHousehold()){
+                if(config.isSpread_via_household() && day<=config.getEncountersPerWeekHousehold()){
                     todaysContacts.addAll(householdList.meetAndInfect(config,health.isInfectious(),isolated,daySummary));
                 }
-                if(day<=config.getEncountersPerWeekFriends() && !isolated){
+                if(config.isSpread_via_friends() && day<=config.getEncountersPerWeekFriends() && !isolated){
                     todaysContacts.addAll(friendList.meetAndInfect(config,health.isInfectious(),daySummary));
                 }
-                if(!isolated && config.getEncountersPerWeekRelations() < config.getRandom().nextDouble()){
+                if(config.isSpread_via_relatives() && !isolated && config.getEncountersPerWeekRelations() < config.getRandom().nextDouble()){
                     todaysContacts.addAll(relativesList.meetAndInfect(config,health.isInfectious(),daySummary));
                 }
                 if(!isolated && works && day<=config.getEncountersPerWeekWork()){
-                    todaysContacts.addAll(worksiteCloseColleagueGroup.meetAndInfect(this,config,health.isInfectious(),daySummary));
-                    todaysContacts.addAll(worksite.meetAndInfect(this,config,health.isInfectious(),daySummary));
-                    if(workCustomerFacing){
+                    if(config.isSpread_via_work_group()) todaysContacts.addAll(worksiteCloseColleagueGroup.meetAndInfect(this,config,health.isInfectious(),daySummary));
+                    if(config.isSpread_via_work_not_group()) todaysContacts.addAll(worksite.meetAndInfect(this,config,health.isInfectious(),daySummary));
+                    if(config.isSpread_via_work_public_facing() && workCustomerFacing){
                         todaysContacts.addAll(meetAndInfectRandom(agentsInArea,config,config.getTransmissionWorkCustomersFacingP(),config.getTransmissionRateWorkCustomersFacing(),daySummary,ContactType.WORKPLACEPUBLICFACING));
                     }
                 }
-                if(!isolated && student && day<=config.getEncountersPerWeekSchool()){
+                if(config.isSpread_via_school() && !isolated && student && day<=config.getEncountersPerWeekSchool()){
                     todaysContacts.addAll(schoolClass.meetAndInfect(this,config,health.isInfectious(),daySummary));
                 }
                 if(!isolated && age >= config.getEncountersPerWeekOldAge()) {
-                    if (config.getEncountersPerWeekRandomOld() < config.getRandom().nextDouble()) {
+                    if (config.isSpread_via_random() &&config.getEncountersPerWeekRandomOld() < config.getRandom().nextDouble()) {
                         todaysContacts.addAll(meetAndInfectRandom(agentsInArea, config,config.getTransmissionRandomP(),config.getTransmissionRateRandom(),daySummary,ContactType.RANDOM));
                     }
                 }else {
-                    if (!isolated && day<= config.getEncountersPerWeekRandomYoung()) {
+                    if (config.isSpread_via_random() && !isolated && day<= config.getEncountersPerWeekRandomYoung()) {
                         todaysContacts.addAll(meetAndInfectRandom(agentsInArea, config, config.getTransmissionRandomP(),config.getTransmissionRateRandom(),daySummary,ContactType.RANDOM));
                     }
                 }
                 app.addAll(todaysContacts,config);
             }else {
-                if(day<=config.getEncountersPerWeekHousehold()){
+                if(config.isSpread_via_household() && day<=config.getEncountersPerWeekHousehold()){
                     householdList.meetAndInfect(config,health.isInfectious(),isolated,daySummary);
                 }
-                if(!isolated && day<=config.getEncountersPerWeekFriends()){
+                if(config.isSpread_via_friends() && !isolated && day<=config.getEncountersPerWeekFriends()){
                     friendList.meetAndInfect(config,health.isInfectious(),daySummary);
                 }
-                if(!isolated && config.getEncountersPerWeekRelations() < config.getRandom().nextDouble()){
+                if(config.isSpread_via_relatives() && !isolated && config.getEncountersPerWeekRelations() < config.getRandom().nextDouble()){
                     relativesList.meetAndInfect(config,health.isInfectious(),daySummary);
                 }
                 if(!isolated && works && day<=config.getEncountersPerWeekWork()){
-                    worksiteCloseColleagueGroup.meetAndInfect(this,config,health.isInfectious(),daySummary);
-                    worksite.meetAndInfect(this,config,health.isInfectious(),daySummary);
-                    if(workCustomerFacing){
+                    if(config.isSpread_via_work_group()) worksiteCloseColleagueGroup.meetAndInfect(this,config,health.isInfectious(),daySummary);
+                    if(config.isSpread_via_work_not_group())worksite.meetAndInfect(this,config,health.isInfectious(),daySummary);
+                    if(config.isSpread_via_work_public_facing() &&workCustomerFacing){
                         meetAndInfectRandom(agentsInArea,config,config.getTransmissionWorkCustomersFacingP(),config.getTransmissionRateWorkCustomersFacing(),daySummary,ContactType.WORKPLACEPUBLICFACING);
                     }
                 }
-                if(!isolated && student && day<=config.getEncountersPerWeekSchool()){
+                if(config.isSpread_via_school() &&!isolated && student && day<=config.getEncountersPerWeekSchool()){
                     schoolClass.meetAndInfect(this,config,health.isInfectious(),daySummary);
                 }
                 if(!isolated && age >= config.getEncountersPerWeekOldAge()) {
-                    if (config.getEncountersPerWeekRandomOld() < config.getRandom().nextDouble()) {
+                    if (config.isSpread_via_random() &&config.getEncountersPerWeekRandomOld() < config.getRandom().nextDouble()) {
                         meetAndInfectRandom(agentsInArea, config,config.getTransmissionRandomP(),config.getTransmissionRateRandom(),daySummary,ContactType.RANDOM);
                     }
                 }else {
-                    if (!isolated && day<= config.getEncountersPerWeekRandomYoung()) {
+                    if (config.isSpread_via_random() &&!isolated && day<= config.getEncountersPerWeekRandomYoung()) {
                         meetAndInfectRandom(agentsInArea, config, config.getTransmissionRandomP(),config.getTransmissionRateRandom(),daySummary,ContactType.RANDOM);
                     }
                 }
@@ -205,7 +205,7 @@ public abstract class Agent {
         }
     }
 
-    public void nextDay(MetaConfig config, TestCenter testCenter, DaySummary daySummary){
+    public void applyBeeingInfected(DaySummary daySummary,MetaConfig config){
         if(gotInfectedYesterday){
             gotInfectedYesterday = false;
 
@@ -215,6 +215,8 @@ public abstract class Agent {
             }
             gotInfectedYesterdayBy = ContactType.NULL;
         }
+    }
+    public void nextDay(MetaConfig config, TestCenter testCenter, DaySummary daySummary){
         if(daysUntilTestArrives > 0){
          //   System.out.println(id + ", daysUntilTestArrives 1: " + daysUntilTestArrives);
             daysUntilTestArrives--;
