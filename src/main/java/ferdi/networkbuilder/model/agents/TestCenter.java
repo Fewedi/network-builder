@@ -60,14 +60,14 @@ public class TestCenter {
         }
         for(int i = 0; i < listPrio1.size(); i++){
             if(tests > 0){
-                listPrio1.get(i).agent().test(this,listPrio1.get(i).symptoms(),config);
+                listPrio1.get(i).agent().test(config);
                 tests--;
                 if(listPrio1.get(i).symptoms()){testsUsedTodayBySymptomatic++;}
                 else {testsUsedTodayByContact++;}
                 testsUsedToday++;
                 //System.out.println("ooooooooooooooooooooooooooooooooooooooooooooo "+ testsUsedToday);
             }else{
-                listPrio1.get(i).agent().dontTest(this,listPrio1.get(i).symptoms(),config);
+                listPrio1.get(i).agent().dontTest(listPrio1.get(i).symptoms(),config);
             }
         }
     }

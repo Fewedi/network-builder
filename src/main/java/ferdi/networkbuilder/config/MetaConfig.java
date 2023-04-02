@@ -33,6 +33,8 @@ public class MetaConfig {
     private double initialAmountRecovered;
     private double initialAmountInfected;
 
+    private double proportionOfPopWithILIPerDay;
+    private double proportionOfTestingBecauseILI;
 
     private boolean friendshipsSkewedByAge;
     private int friendshipsMinAge;
@@ -172,6 +174,8 @@ public class MetaConfig {
     private boolean spread_via_work_not_group;
     private boolean spread_via_work_public_facing;
 
+    private int cTADaysToSave;
+
     public MetaConfig() {
         this.metaDataLocal = new HashMap<>();
         this.metaDataGlobal = new GeographicHouseholdMetaData();
@@ -183,6 +187,30 @@ public class MetaConfig {
         this.seed = seed;
         random.setSeed(seed);
         randomGenerator.setSeed(seed);
+    }
+
+    public double getProportionOfPopWithILIPerDay() {
+        return proportionOfPopWithILIPerDay;
+    }
+
+    public void setProportionOfPopWithILIPerDay(double proportionOfPopWithILIPerDay) {
+        this.proportionOfPopWithILIPerDay = proportionOfPopWithILIPerDay;
+    }
+
+    public double getProportionOfTestingBecauseILI() {
+        return proportionOfTestingBecauseILI;
+    }
+
+    public void setProportionOfTestingBecauseILI(double proportionOfTestingBecauseILI) {
+        this.proportionOfTestingBecauseILI = proportionOfTestingBecauseILI;
+    }
+
+    public int getcTADaysToSave() {
+        return cTADaysToSave;
+    }
+
+    public void setcTADaysToSave(int cTADaysToSave) {
+        this.cTADaysToSave = cTADaysToSave;
     }
 
     public boolean isSpread_via_relatives() {

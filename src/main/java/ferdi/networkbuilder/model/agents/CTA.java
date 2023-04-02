@@ -2,14 +2,32 @@ package ferdi.networkbuilder.model.agents;
 
 import ferdi.networkbuilder.config.MetaConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CTA {
+    private final List<List<Agent>> savedAgents;
+
+    public CTA(){
+        this.savedAgents = new ArrayList<>();
+    }
+
     public void notifyThose(MetaConfig config, TestCenter testCenter) {
-        //TODO
+        for (List<Agent> days: savedAgents) {
+            for(Agent agent: days){
+                agent.cTAContactIsPositive(config,testCenter);
+            }
+        }
     }
 
     public void addAll(List<Agent> todaysContacts, MetaConfig config) {
-        //TODO
+        removeOld(config.getcTADaysToSave());
+        savedAgents.add(0,todaysContacts);
+    }
+
+    private void removeOld(int getcTADaysToSave) {
+        if(savedAgents.size() >= getcTADaysToSave){
+            savedAgents.remove(savedAgents.size()-1);
+        }
     }
 }

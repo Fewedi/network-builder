@@ -40,7 +40,7 @@ public class SimulatorImpl implements Simulator{
             updateState(agentMap,config);
             identifySymptomsAndReact(agentMap,config,testCenter,daySummary);
             updateDaySummary(daySummary,agentMap,testCenter);
-            meetAndInfect(weekday,areaMap,agentMap,config,testCenter,daySummary);
+            meetAndInfect(weekday,areaMap,agentMap,config, daySummary);
             System.out.println(daySummary);
             // treffen Kontakte
             // infektion Kontakte
@@ -51,11 +51,11 @@ public class SimulatorImpl implements Simulator{
         finalCSVCreationController.createNetworkSummary(dayList,config);
     }
 
-    private void meetAndInfect(int weekday, Map<Integer, List<Agent>> areaMap, AgentMap<Agent> agentMap, MetaConfig config, TestCenter testCenter, DaySummary daySummary) {
+    private void meetAndInfect(int weekday, Map<Integer, List<Agent>> areaMap, AgentMap<Agent> agentMap, MetaConfig config, DaySummary daySummary) {
         for (Map.Entry<Integer, Agent> agentEntry : agentMap.entrySet()) {
 
             Agent agent = agentEntry.getValue();
-            agent.meetAndInfect(areaMap.get(agent.getArea()),config,testCenter,weekday,daySummary);
+            agent.meetAndInfect(areaMap.get(agent.getArea()),config, weekday,daySummary);
         }
         for (Map.Entry<Integer, Agent> agentEntry : agentMap.entrySet()) {
 
@@ -64,7 +64,7 @@ public class SimulatorImpl implements Simulator{
         }
     }
 
-    private void printAgents(AgentMap<Agent> agentMap, MetaConfig config, TestCenter testCenter) {
+    private void printAgents(AgentMap<Agent> agentMap, MetaConfig config) {
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
 
             Agent agent = agentEntry.getValue();
@@ -81,6 +81,7 @@ public class SimulatorImpl implements Simulator{
         }
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
             agentEntry.getValue().dealWithSymptomsFromCovid(config,testCenter);
+            agentEntry.getValue().dealWithSymptomsFromILI(config,testCenter);
             if(agentEntry.getValue().getHealth().isInfectedCurrently()){
                     //System.out.println(agentEntry.getValue() +" --- "+ agentEntry.getValue().getHealth());
             }
@@ -114,8 +115,7 @@ public class SimulatorImpl implements Simulator{
         Map<Integer, Map<Integer, Agent>> rmap= map.getAreaMap();
         Map<Integer, List<Agent>> convertedMap = new HashMap<>();
         for (Map.Entry<Integer, Map<Integer, Agent>> entry :rmap.entrySet()) {
-            List<Agent> list = new ArrayList<>();
-            list.addAll(entry.getValue().values());
+            List<Agent> list = new ArrayList<>(entry.getValue().values());
             convertedMap.put(entry.getKey(), list);
         }
         return convertedMap;

@@ -35,7 +35,7 @@ public abstract class Agent {
 
     private boolean workCustomerFacing = false;
 
-    private CTA app;
+    private final CTA app;
     private boolean works = false;
     private boolean student = false;
 
@@ -62,7 +62,7 @@ public abstract class Agent {
         app = new CTA();
     }
 
-    public void meetAndInfect(List<Agent> agentsInArea, MetaConfig config, TestCenter testCenter, int day, DaySummary daySummary) {
+    public void meetAndInfect(List<Agent> agentsInArea, MetaConfig config, int day, DaySummary daySummary) {
         //System.out.println(" -------------------- id: " + id + " infected " + health.isInfectedCurrently());
         if(!health.getHealthStatus().equals(HealthStatus.SEVERE_HOS)){
             if(usesCTA){
@@ -157,7 +157,7 @@ public abstract class Agent {
     }
 
 
-    public void test(TestCenter testCenter, boolean symptoms, MetaConfig config) {
+    public void test(MetaConfig config) {
         daysUntilTestArrives = config.getDaysUntilTestsArrive();
     }
 
@@ -168,7 +168,7 @@ public abstract class Agent {
             //react to positive test result
             didITestPositiveInMyLife = true;
             //self-isolate
-            selfIsolateTest(config,testCenter);
+            selfIsolateTest(config);
             //notify household
             householdList.notifyThose(config,testCenter);
             //notify relatives
@@ -187,7 +187,7 @@ public abstract class Agent {
         }
     }
 
-    public void dontTest(TestCenter testCenter, boolean symptoms, MetaConfig config) {
+    public void dontTest(boolean symptoms, MetaConfig config) {
         double prob;
         if(symptoms){
             prob = config.getIsolationProbabilityNoTest();
@@ -242,6 +242,10 @@ public abstract class Agent {
         }
     }
 
+    public void cTAContactIsPositive(MetaConfig config, TestCenter testCenter){
+        testBecauseContact(config,testCenter);
+        //System.out.println(id + " via CTA: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
+    }
 
     public void relativeIsPositive(MetaConfig config, TestCenter testCenter){
         testBecauseContact(config,testCenter);
@@ -249,21 +253,14 @@ public abstract class Agent {
     }
 
     public void householdMemberIsPositive(MetaConfig config, TestCenter testCenter){
-        selfIsolateContact(config,testCenter);
+        selfIsolateContact(config);
         testBecauseContact(config,testCenter);
         //System.out.println(id + " via household: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
     }
 
 
-
-    public void contactCTAIsPositive(MetaConfig config, TestCenter testCenter){
-        testBecauseContact(config,testCenter);
-        //System.out.println(id + " via CTA: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
-    }
-
-
     public void classmateIsPositive(MetaConfig config, TestCenter testCenter){
-        selfIsolateSchool(config,testCenter);
+        selfIsolateSchool(config);
         testBecauseContact(config,testCenter);
     }
 
@@ -287,7 +284,7 @@ public abstract class Agent {
         }
     }
 
-    private void selfIsolateContact(MetaConfig config, TestCenter testCenter) {
+    private void selfIsolateContact(MetaConfig config) {
         double prob = config.getIsolationProbabilityCTAAndRelativesNoTest();
         if(withCertainProb(config.getRandom(), prob)){
             //System.out.println(id + " self-isolated because of contact " + config.getIsolationTimeIfContact());
@@ -299,7 +296,7 @@ public abstract class Agent {
         }
     }
 
-    private void selfIsolateTest(MetaConfig config, TestCenter testCenter) {
+    private void selfIsolateTest(MetaConfig config) {
         double prob = config.getIsolationProbabilityTest();
         if(withCertainProb(config.getRandom(), prob)){
             //System.out.println(id + " self-isolated because of test");
@@ -309,7 +306,7 @@ public abstract class Agent {
             //System.out.println(id + " not self-isolated because of test");
         }
     }
-    private void selfIsolateSchool(MetaConfig config, TestCenter testCenter) {
+    private void selfIsolateSchool(MetaConfig config) {
         //System.out.println(id + " self-isolated because of school");
         isolated = true;
         waitUntilSymptomsGone = false;
@@ -328,6 +325,12 @@ public abstract class Agent {
         }
         if(daysUntilTestArrives != -1){
             //System.out.println(id + " 2 -------------------------------------------------------------------------DaysUntilTestsArrive: " + daysUntilTestArrives);
+        }
+    }
+
+    public void dealWithSymptomsFromILI(MetaConfig config, TestCenter testCenter) {
+        if(config.getRandom().nextDouble() < config.getProportionOfPopWithILIPerDay() && config.getRandom().nextDouble() < config.getProportionOfTestingBecauseILI()){
+            testBecauseSymptoms(config,testCenter);
         }
     }
     private boolean withCertainProb(Random rng, double prob){
@@ -382,12 +385,11 @@ public abstract class Agent {
 
 
     public String toStringIsolation() {
-        String s = "symptoms: " + health.doIHaveSymptoms()
+        return "symptoms: " + health.doIHaveSymptoms()
                 + ", infected: " + health.isInfectedCurrently()
                 + ", infectious: " + health.isInfectious()
                 + ", days until test arrives: " + daysUntilTestArrives
                 + ", isolated: " + isolated + " for " + timeToIsolate + " days bzw until symptoms gone: " + waitUntilSymptomsGone;
-        return s;
     }
     @Override
     public String toString() {
@@ -510,4 +512,6 @@ public abstract class Agent {
         gotInfectedYesterday = true;
         gotInfectedYesterdayBy = contactType;
     }
+
+
 }
