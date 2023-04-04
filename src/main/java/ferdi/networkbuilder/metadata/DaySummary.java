@@ -173,7 +173,9 @@ public class DaySummary {
                 "infectionsWorkPublicFacing"+";"+
                 "contactsWorkPublicFacing"+";"+
                 "infectionsRandom"+";"+
-                "contactsRandom";
+                "contactsRandom"+";"+
+                "infectionsSum"+";"+
+                "contactsSum";
     }
     public String csvString() {
         return day+";"+
@@ -211,7 +213,9 @@ public class DaySummary {
                 infectionsWorkPublicFacing+";"+
                 contactsWorkPublicFacing+";"+
                 infectionsRandom+";"+
-                contactsRandom;
+                contactsRandom+";"+
+                infectionsSum+";"+
+                contactsSum;
 
     }
     @Override

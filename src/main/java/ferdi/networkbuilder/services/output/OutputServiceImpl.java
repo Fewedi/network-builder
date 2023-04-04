@@ -10,9 +10,7 @@ import ferdi.networkbuilder.model.contacts.Worksite;
 import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +48,37 @@ public class OutputServiceImpl implements OutputService{
     }
 
     private void createFile(NetworkSummaryData summary, MetaConfig config) throws IOException {
-        String path = config.getPathOutput() + "/" + "Network_Summary.txt";
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-        writer.write(summary.toString());
+        String path = config.getPathOutput();
+        String dir = "/network_metadata";
+        File file = new File(path + dir);
+        if (!file.exists()) { // check if directory does not exist
+            file.mkdirs(); // create directory and its parent directories if they do not exist
+        }
+        boolean created = false;
+        int c = 1;
+        while (!created) {
+            File fileToPrint = new File(file.getAbsolutePath() + "/Network_Summary_"+c+".txt");
+            if (fileToPrint.exists()) {
+                c++;
+            } else {
+                created = true;
+                String input = summary.toString();
+                createFile(input,fileToPrint);
+            }
+        }
+    }
 
-        writer.close();
+    private void createFile(String string, File file) {
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            byte[] bytes = string.getBytes();
+            outputStream.write(bytes);
+            outputStream.close();
+            System.out.println("created and successfully written to: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating or writing to " + file.getAbsolutePath());
+            e.printStackTrace();
+        }
     }
 
     private void setDemograpic(ModelFoundation modelFoundation, NetworkSummaryData summary, MetaConfig config) {

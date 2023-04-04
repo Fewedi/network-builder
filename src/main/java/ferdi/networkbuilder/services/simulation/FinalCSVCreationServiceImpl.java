@@ -2,7 +2,6 @@ package ferdi.networkbuilder.services.simulation;
 
 import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.metadata.DaySummary;
-import ferdi.networkbuilder.metadata.NetworkSummaryData;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -13,9 +12,9 @@ import java.util.List;
 @Service
 public class FinalCSVCreationServiceImpl implements FinalCSVCreationService {
     @Override
-    public void create(List<DaySummary> daySummaryList, MetaConfig config) {
+    public void create(List<DaySummary> daySummaryList, MetaConfig config, String fileName) {
         try {
-            createFile(listToString(daySummaryList),config);
+            createFile(listToString(daySummaryList),config,fileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -29,8 +28,8 @@ public class FinalCSVCreationServiceImpl implements FinalCSVCreationService {
         return s.toString();
     }
 
-    private void createFile(String string, MetaConfig config) throws IOException {
-        String path = config.getPathOutput() + "/" + "days.csv";
+    private void createFile(String string, MetaConfig config, String fileName) throws IOException {
+        String path = config.getPathOutput() + "/" + fileName;
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
         writer.write(string);
 

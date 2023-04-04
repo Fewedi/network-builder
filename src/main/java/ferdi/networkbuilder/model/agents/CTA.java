@@ -2,10 +2,11 @@ package ferdi.networkbuilder.model.agents;
 
 import ferdi.networkbuilder.config.MetaConfig;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CTA {
+public class CTA implements Serializable {
     private final List<List<Agent>> savedAgents;
 
     public CTA(){
@@ -29,5 +30,9 @@ public class CTA {
         if(savedAgents.size() >= getcTADaysToSave){
             savedAgents.remove(savedAgents.size()-1);
         }
+    }
+
+    public void reset() {
+        savedAgents.clear();
     }
 }

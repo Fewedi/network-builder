@@ -5,22 +5,25 @@ import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
-public class Health {
+public class Health implements Serializable {
     private HealthStatus healthStatus;
     private int daysInStatus;
     private boolean infectious;
 
     public boolean isInfectedCurrently() {
         switch (healthStatus) {
-            case ASYMPTOMATIC, MILD, SEVERE, SEVERE_HOS, INCUBATION:{
+            case ASYMPTOMATIC, MILD, SEVERE, SEVERE_HOS, INCUBATION -> {
                 return true;
-            } default :
+            }
+            default -> {
                 return false;
+            }
         }
     }
 
@@ -248,5 +251,10 @@ public class Health {
             return true;
         }
         return false;
+    }
+
+    public void reset(MetaConfig config, int age) {
+        healthStatus = HealthStatus.SUSCEPTIBLE;
+        generateDays(HealthStatus.SUSCEPTIBLE, config, age);
     }
 }

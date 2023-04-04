@@ -11,9 +11,10 @@ import ferdi.networkbuilder.model.contacts.Worksite;
 import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
 import org.apache.commons.math3.distribution.PoissonDistribution;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Agent {
+public abstract class Agent implements Serializable {
 
     private Health health;
     private final int id;
@@ -44,11 +45,23 @@ public abstract class Agent {
     private boolean usesCTA = false;
     private boolean didITestPositiveInMyLife = false;
     private boolean waitUntilSymptomsGone=false;
-    private int timeToIsolate;
+    private int timeToIsolate = -1;
 
     private boolean gotInfectedYesterday = false;
     private ContactType gotInfectedYesterdayBy = ContactType.NULL;
     private int daysUntilTestArrives = -1;
+
+    public void reset(MetaConfig config){
+        //health.reset(config,age);
+        app.reset();
+        daysUntilTestArrives = -1;
+        gotInfectedYesterdayBy = ContactType.NULL;
+        gotInfectedYesterday = false;
+        timeToIsolate = -1;
+        usesCTA = false;
+        isolated = false;
+        symptoms = false;
+    }
 
     public Agent(int id, short age, boolean couple, boolean kids, int area) {
         this.id = id;
@@ -243,8 +256,9 @@ public abstract class Agent {
     }
 
     public void cTAContactIsPositive(MetaConfig config, TestCenter testCenter){
-        testBecauseContact(config,testCenter);
-        //System.out.println(id + " via CTA: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
+        if(usesCTA){
+            testBecauseContact(config,testCenter);
+        }//System.out.println(id + " via CTA: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
     }
 
     public void relativeIsPositive(MetaConfig config, TestCenter testCenter){

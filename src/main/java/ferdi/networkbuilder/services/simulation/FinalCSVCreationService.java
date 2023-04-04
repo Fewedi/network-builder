@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FinalCSVCreationService {
 
-    void create(List<DaySummary> daySummaryList, MetaConfig config);
+    void create(List<DaySummary> daySummaryList, MetaConfig config, String fileName);
 }

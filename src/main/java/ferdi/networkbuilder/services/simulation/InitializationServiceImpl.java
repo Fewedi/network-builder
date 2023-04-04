@@ -14,6 +14,7 @@ import java.util.*;
 public class InitializationServiceImpl implements InitializationService {
     @Override
     public void initialise(AgentMap<Agent> agentMap, MetaConfig config) {
+        resetAgents(agentMap,config);
         List<Agent> agents= new ArrayList<>();
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
             agents.add(agentEntry.getValue());
@@ -42,8 +43,14 @@ public class InitializationServiceImpl implements InitializationService {
         List<Agent> recList = setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED, config);
         List<Agent> susList = setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE, config);
 
-        System.out.println(infList);
+        //System.out.println(infList);
         initCTA(agents, config);
+    }
+
+    private void resetAgents(AgentMap<Agent> agentMap, MetaConfig config) {
+        for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
+            agentEntry.getValue().reset(config);
+        }
     }
 
     private void initCTA(List<Agent> agents, MetaConfig config) {

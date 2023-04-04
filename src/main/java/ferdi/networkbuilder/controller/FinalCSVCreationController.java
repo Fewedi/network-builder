@@ -15,8 +15,8 @@ public class FinalCSVCreationController {
         this.finalCSVCreationService = finalCSVCreationService;
     }
 
-    public void createNetworkSummary (List<DaySummary> daySummaryList, MetaConfig config){
-        finalCSVCreationService.create(daySummaryList,config);
+    public void createNetworkSummary (List<DaySummary> daySummaryList, MetaConfig config, String fileName){
+        finalCSVCreationService.create(daySummaryList,config,fileName);
     }
 }
 

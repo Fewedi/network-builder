@@ -14,6 +14,18 @@ import java.util.Random;
 @Configuration
 @ConfigurationProperties(prefix = "default")
 public class MetaConfig {
+
+    private int runCounter = 0;
+    private int runs;
+    private boolean test_multiple;
+    private boolean toTestCTAAppliance;
+    private List<Double> cTAApplienceList;
+    private boolean toTestTestCapacity;
+    private List<Double> testCapacityList;
+
+    private boolean toTestTestPriority;
+
+
     private int maximalPopulation;
     private String pathDataHousehold;
     private String pathDataAge;
@@ -187,6 +199,71 @@ public class MetaConfig {
         this.seed = seed;
         random.setSeed(seed);
         randomGenerator.setSeed(seed);
+    }
+
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public void addRun(){
+        runCounter++;
+    }
+
+    public int getRunCounter(){
+        return runCounter;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+
+    public boolean isToTestTestCapacity() {
+        return toTestTestCapacity;
+    }
+
+    public void setToTestTestCapacity(boolean toTestTestCapacity) {
+        this.toTestTestCapacity = toTestTestCapacity;
+    }
+
+    public List<Double> getTestCapacityList() {
+        return testCapacityList;
+    }
+
+    public void setTestCapacityList(List<Double> testCapacityList) {
+        this.testCapacityList = testCapacityList;
+    }
+
+    public boolean isToTestTestPriority() {
+        return toTestTestPriority;
+    }
+
+    public void setToTestTestPriority(boolean toTestTestPriority) {
+        this.toTestTestPriority = toTestTestPriority;
+    }
+
+    public boolean isTest_multiple() {
+        return test_multiple;
+    }
+
+    public void setTest_multiple(boolean test_multiple) {
+        this.test_multiple = test_multiple;
+    }
+
+    public boolean isToTestCTAAppliance() {
+        return toTestCTAAppliance;
+    }
+
+    public void setToTestCTAAppliance(boolean toTestCTAAppliance) {
+        this.toTestCTAAppliance = toTestCTAAppliance;
+    }
+
+    public List<Double> getcTAApplienceList() {
+        return cTAApplienceList;
+    }
+
+    public void setcTAApplienceList(List<Double> cTAApplienceList) {
+        this.cTAApplienceList = cTAApplienceList;
     }
 
     public double getProportionOfPopWithILIPerDay() {
