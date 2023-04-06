@@ -12,9 +12,6 @@ import java.util.*;
 
 @Service
 public class FriendshipCreationService implements RelationCreationService {
-
-
-
     @Override
     public void buildRelationships(ModelFoundation modelFoundation, MetaConfig config) {
         if(config.isDefaultFriendshipsSkewedByAge()){
@@ -48,14 +45,12 @@ public class FriendshipCreationService implements RelationCreationService {
             }
             groups.add(oneGroup);
         }
-        //System.out.println(groups);
         if(groups.size() > 1){
 
             for(int i = 0; i < groups.size() -1; i++){
                 int startAge = groups.get(i).get(0);
                 int endAge = groups.get(i+1).get(groups.get(i+1).size()-1);
                 Map<Integer,Agent> map = modelFoundation.getAgeMapRange(startAge,endAge);
-                //System.out.println(map);
                 Graph<Agent,DefaultEdge> graph = applyBarabasiAlbertModel(map,config.getFriendshipsBarabasiAlbertGraphM() / 2,config.getRandom());
                 graphToAgentRelationships(graph);
             }

@@ -12,7 +12,6 @@ import ferdi.networkbuilder.model.collections.AreaMap;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,25 +22,21 @@ public class SimulatorImpl implements Simulator{
     @Override
     public void simulate(AgentMap<Agent> agentMap,ApplicationContext ctx) {
         InitializationController initializationController = (InitializationController) ctx.getBean("initializationController");
-        FinalCSVCreationController finalCSVCreationController = (FinalCSVCreationController) ctx.getBean("finalCSVCreationController");
         MetaConfig config = (MetaConfig) ctx.getBean("metaConfig");
         if(!config.isTest_multiple()){
             runOneSimulation(agentMap,initializationController, config);
         }else {
-
             runMultipleSimulationCTA(agentMap,initializationController, config);
         }
-
     }
 
     private void runMultipleSimulationCTA(AgentMap<Agent> agentMap, InitializationController initializationController, MetaConfig config) {
 
         if(config.isToTestCTAAppliance()){
             List<Double> rates = config.getcTAApplienceList();
-            for(int i = 0; i < rates.size();i++){
-                //System.out.println(" run: " + i);
-                config.setcTAUsers(rates.get(i));
-                runMultipleSimulationTests(agentMap,initializationController, config);
+            for (Double rate : rates) {
+                config.setcTAUsers(rate);
+                runMultipleSimulationTests(agentMap, initializationController, config);
             }
         }else {
             runMultipleSimulationTests(agentMap,initializationController, config);
@@ -54,10 +49,9 @@ public class SimulatorImpl implements Simulator{
 
         if(config.isToTestTestCapacity()){
             List<Double> rates = config.getTestCapacityList();
-            for(int i = 0; i < rates.size();i++){
-                //System.out.println(" run: " + i);
-                config.setTestsPerNDays(rates.get(i));
-                runMultipleSimulationPrio(agentMap,initializationController, config);
+            for (Double rate : rates) {
+                config.setTestsPerNDays(rate);
+                runMultipleSimulationPrio(agentMap, initializationController, config);
             }
         }else {
             runMultipleSimulationPrio(agentMap,initializationController, config);
@@ -65,7 +59,6 @@ public class SimulatorImpl implements Simulator{
     }
 
     private void runMultipleSimulationPrio(AgentMap<Agent> agentMap, InitializationController initializationController, MetaConfig config) {
-
         if(config.isToTestTestPriority()){
             config.setTestPrio(true);
             runOneSimulation(agentMap,initializationController, config);
@@ -85,6 +78,7 @@ public class SimulatorImpl implements Simulator{
         int weekday = 0;
         System.out.println();
         System.out.println("--------NEW RUN " +config.getRunCounter() +  " WITH: " + dayList.getRunName() + "-------------------------------------------");
+
         for( int day = 1; day <= config.getDays() ; day++){
             weekday = (weekday % week) +1;
             DaySummary daySummary = new DaySummary(day);
@@ -101,7 +95,6 @@ public class SimulatorImpl implements Simulator{
         }
         dayList.create(config);
         config.addRun();
-        //finalCSVCreationController.createNetworkSummary(dayList,config, name);
     }
 
     private void meetAndInfect(int weekday, Map<Integer, List<Agent>> areaMap, AgentMap<Agent> agentMap, MetaConfig config, DaySummary daySummary) {
@@ -111,15 +104,22 @@ public class SimulatorImpl implements Simulator{
             agent.meetAndInfect(areaMap.get(agent.getArea()),config, weekday,daySummary);
         }
         for (Map.Entry<Integer, Agent> agentEntry : agentMap.entrySet()) {
-
             Agent agent = agentEntry.getValue();
             agent.applyBeeingInfected(daySummary,config);
         }
     }
 
+    private int printConfigDifs(AgentMap<Agent> agentMap, MetaConfig config){
+        int counterCTA = 0;
+        for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
+            if(agentEntry.getValue().usesCTA()){
+                counterCTA++;
+            }
+        }
+        return counterCTA;
+    }
     private void printAgents(AgentMap<Agent> agentMap, MetaConfig config) {
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
-
             Agent agent = agentEntry.getValue();
             if(agentEntry.getValue().getHealth().isInfectedCurrently()  || agentEntry.getValue().isIsolated()){
                 System.out.println(agent +" --- "+ agent.getHealth() + " --- " +agent.toStringIsolation()+ " --- " + agent.toStringHousehold() + " --- " + agent.toStringRelatives());
@@ -128,7 +128,6 @@ public class SimulatorImpl implements Simulator{
     }
 
     private void identifySymptomsAndReact(AgentMap<Agent> agentMap, MetaConfig config, TestCenter testCenter, DaySummary daySummary) {
-
         for(Map.Entry<Integer,Agent> agentEntry: agentMap.entrySet()){
             agentEntry.getValue().nextDay(config,testCenter,daySummary);
         }

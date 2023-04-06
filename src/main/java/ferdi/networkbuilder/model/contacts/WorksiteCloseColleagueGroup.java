@@ -38,7 +38,6 @@ public class WorksiteCloseColleagueGroup {
             for(Agent agent: colOfAgent){
                 if(prop > config.getRandom().nextDouble()){
                     agent.infect(config, ContactType.WORKPLACEGROUP);
-                    //System.out.println(" infect group");
                 }
                 daySummary.addContact(ContactType.WORKPLACEGROUP);
             }

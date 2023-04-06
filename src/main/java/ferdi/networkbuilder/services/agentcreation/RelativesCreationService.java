@@ -33,7 +33,6 @@ public class RelativesCreationService implements RelationCreationService {
                 relationsCount++;
             }
         }
-        System.out.println(relationsCount);
         System.out.println("Relations created: " + relationsCount + ", for " + personsWithRelationships + " people, mean relations per person: " + ((double) relationsCount / (double) personsWithRelationships));
 
     }

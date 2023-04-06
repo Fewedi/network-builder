@@ -47,9 +47,7 @@ public class AgeMap {
     public Map<Integer,Agent> getRange(int minAge, int maxAge) {
         Map<Integer,Agent> map = new AgentMap<>();
         for (int i = minAge; i <= maxAge; i++){
-
             if(ageMap.containsKey((short)i)){
-                //System.out.println(i);
                 map.putAll(ageMap.get((short) i));
             }
         }

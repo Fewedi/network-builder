@@ -7,7 +7,10 @@ import ferdi.networkbuilder.model.agents.HealthStatus;
 import ferdi.networkbuilder.model.collections.AgentMap;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -39,12 +42,28 @@ public class InitializationServiceImpl implements InitializationService {
         int susStart = recEnd + 1;
         int susEnd = agents.size()-1;
 
-        List<Agent> infList = setHealth(agents,infStart,infEnd, HealthStatus.INCUBATION, config);
-        List<Agent> recList = setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED, config);
-        List<Agent> susList = setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE, config);
+        setHealth(agents,infStart,infEnd, HealthStatus.INCUBATION, config);
+        setHealth(agents,recStart,recEnd, HealthStatus.RECOVERED, config);
+        setHealth(agents,susStart,susEnd, HealthStatus.SUSCEPTIBLE, config);
 
-        //System.out.println(infList);
-        initCTA(agents, config);
+        Collections.shuffle(agents);
+        setCTAComplience(agents,config);
+    }
+
+    private void setCTAComplience(List<Agent> agents, MetaConfig config) {
+        int totalCTA = (int) (config.getcTAUsers() * (double) agents.size());
+        if(totalCTA != 0){
+            for(int i = 0; i<totalCTA; i++){
+                agents.get(i).setUsesCTA(true);
+            }
+            for(int i = totalCTA; i < agents.size(); i++){
+                agents.get(i).setUsesCTA(false);
+            }
+        }else {
+            for (Agent agent : agents) {
+                agent.setUsesCTA(false);
+            }
+        }
     }
 
     private void resetAgents(AgentMap<Agent> agentMap, MetaConfig config) {
@@ -53,31 +72,10 @@ public class InitializationServiceImpl implements InitializationService {
         }
     }
 
-    private void initCTA(List<Agent> agents, MetaConfig config) {
-        List<Agent> withMinAge = new ArrayList<>();
-        for (Agent agent: agents){
-            if(agent.getAge() >= config.getcTAMinAge()){
-                withMinAge.add(agent);
-            }
-        }
-        Collections.shuffle(withMinAge,config.getRandom());
-        int absoluteCTAUsers = (int) Math.round(config.getcTAUsers() * (double) agents.size());
-        for(int i = 0; i <= absoluteCTAUsers-1 || i< withMinAge.size(); i++){
-            withMinAge.get(i).setUsesCTA(true);
-        }
-    }
-
-    private List<Agent> setHealth(List<Agent> agents,int start, int end, HealthStatus status, MetaConfig config) {
-        List<Agent> list = new ArrayList<>();
+    private void setHealth(List<Agent> agents, int start, int end, HealthStatus status, MetaConfig config) {
         for(int i = start; i <= end; i++){
             Agent agent = agents.get(i);
-
                 agent.setHealth(new Health(status,config,agent.getAge()));
-                list.add(agent);
-
         }
-
-
-        return  list;
     }
 }

@@ -2,7 +2,6 @@ package ferdi.networkbuilder.model.collections;
 
 import ferdi.networkbuilder.model.agents.Agent;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 public class AgentMap<T extends Agent> extends HashMap<Integer,T> {

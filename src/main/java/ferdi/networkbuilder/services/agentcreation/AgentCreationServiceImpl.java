@@ -2,10 +2,8 @@ package ferdi.networkbuilder.services.agentcreation;
 
 import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.metadata.AgentCreationData;
-import ferdi.networkbuilder.model.collections.ModelFoundation;
-import ferdi.networkbuilder.model.agents.Adult;
 import ferdi.networkbuilder.model.agents.Agent;
-import ferdi.networkbuilder.model.agents.Child;
+import ferdi.networkbuilder.model.collections.ModelFoundation;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -38,16 +36,15 @@ public class AgentCreationServiceImpl implements AgentCreationService {
         }
         System.out.println("Agents created: - " + modelFoundation.getFullMap().size());
         return modelFoundation;
-        //modelFoundation.getAgeMap().printOut();
     }
 
     private Map<Integer, Agent> createAgentsForOneCreationData(AtomicInteger nextId, AgentCreationData data){
         Map<Integer, Agent> map = new HashMap<>();
         for(int i = 0; i < data.amount();i++){
             if(isAdult(data)){
-                map.put(nextId.get(),new Adult(nextId.get(),(short) data.age(), data.couple(), data.kids(),(int) data.area()));
+                map.put(nextId.get(),new Agent(nextId.get(),(short) data.age(), data.couple(), data.kids(),(int) data.area()));
             }   else {
-                map.put(nextId.get(),new Child(nextId.get(),(short) data.age(), data.couple(), data.kids(),(int) data.area()));
+                map.put(nextId.get(),new Agent(nextId.get(),(short) data.age(), data.couple(), data.kids(),(int) data.area()));
             }
             nextId.incrementAndGet();
         }

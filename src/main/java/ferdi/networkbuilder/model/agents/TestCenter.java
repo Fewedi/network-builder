@@ -65,7 +65,6 @@ public class TestCenter {
                 if(listPrio1.get(i).symptoms()){testsUsedTodayBySymptomatic++;}
                 else {testsUsedTodayByContact++;}
                 testsUsedToday++;
-                //System.out.println("ooooooooooooooooooooooooooooooooooooooooooooo "+ testsUsedToday);
             }else{
                 listPrio1.get(i).agent().dontTest(listPrio1.get(i).symptoms(),config);
             }
@@ -96,7 +95,6 @@ public class TestCenter {
 
     public void testBecauseContact(Agent agent){
         testsNeededTodayByContact++;
-        //System.out.println("testsNeededTodayByContact: " + testsNeededTodayByContact);
         listPrio2.add(new TestWithReason(agent, false));
     }
 

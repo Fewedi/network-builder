@@ -18,18 +18,15 @@ public class HouseholdList extends ArrayList<Agent> {
 
     public List<Agent> meetAndInfect(MetaConfig config, boolean infectious, boolean isolated, DaySummary daySummary) {
         if(infectious){
-            double prop = 0;
+            double prop;
             if(isolated){
                 prop = config.getBaselineTransmissionProp() * config.getTransmissionRateHousehold() * config.getTransmissionReductionHouseholdIsolated();
-                //System.out.println("prop hh is: " + prop);
             }else {
                 prop = config.getBaselineTransmissionProp() * config.getTransmissionRateHousehold();
-                //System.out.println("prop hh not is: " + prop);
             }
             for(Agent agent: this){
                 if(prop > config.getRandom().nextDouble()){
                     agent.infect(config,ContactType.HOUSEHOLD);
-                    //System.out.println("infect") household");
                 }
             }
         }

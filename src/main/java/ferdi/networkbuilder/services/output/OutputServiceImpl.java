@@ -10,7 +10,9 @@ import ferdi.networkbuilder.model.contacts.Worksite;
 import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,7 @@ public class OutputServiceImpl implements OutputService{
         if(config.isPrintNetworkData()){
             System.out.println(summary);
         }
-        if(config.isPrintNetworkData()){
+        if(config.isCreateFileNetworkData()){
             try {
                 createFile(summary,config);
             } catch (IOException e) {

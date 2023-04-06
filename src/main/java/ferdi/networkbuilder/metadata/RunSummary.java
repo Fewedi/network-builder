@@ -2,7 +2,9 @@ package ferdi.networkbuilder.metadata;
 
 import ferdi.networkbuilder.config.MetaConfig;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class RunSummary {
         String dir = "/users-testcap-prio_" + cTAusers + "-" + testCapacaty + "-" + prio ;
         File file = new File(path + dir);
         if (!file.exists()) { // check if directory does not exist
-            boolean isCreated = file.mkdirs(); // create directory and its parent directories if they do not exist
+            file.mkdirs(); // create directory and its parent directories if they do not exist
         }
         boolean created = false;
         int c = 1;

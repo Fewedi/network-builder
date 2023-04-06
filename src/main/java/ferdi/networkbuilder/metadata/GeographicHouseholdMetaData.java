@@ -52,9 +52,6 @@ public class GeographicHouseholdMetaData extends GeographicMetaData{
     private Long sumAge35to49;
     private Long sumAge50to;
 
-
-
-
     public void setGeographicHouseholdMetaData(Long cduId, String geoCode, String geoLabel
             , Long hhNodepCouple16to24, Long hhDepCouple16to24, Long hhNodepSingle16to24, Long hhDepSingle16to24
             , Long hhNodepCouple25to34, Long hhDepCouple25to34, Long hhNodepSingle25to34, Long hhDepSingle25to34
@@ -83,9 +80,6 @@ public class GeographicHouseholdMetaData extends GeographicMetaData{
         sumhh35to49 = hhNodepCouple35to49 + hhDepCouple35to49 + hhNodepSingle35to49 + hhDepSingle35to49;
         sumhh50to = hhNodepCouple50to + hhDepCouple50to + hhNodepSingle50to + hhDepSingle50to;
         sumhhPopulation = sumhh16to24 + sumhh25to34 + sumhh35to49 + sumhh50to;
-
-
-
     }
 
     public Integer getByAge(int minAge, int maxAge){
@@ -139,7 +133,6 @@ public class GeographicHouseholdMetaData extends GeographicMetaData{
     }
 
     public void calcComparisonAgeData(){
-        //System.out.println(ageMap);
         sumAge00to15 = sumAgeInRange(0,15);
         sumAge16to24 = sumAgeInRange(16,24);
         sumAge25to34 =sumAgeInRange(25,34);
@@ -151,9 +144,7 @@ public class GeographicHouseholdMetaData extends GeographicMetaData{
 
     private Long sumAgeInRange(int lowerAge, int higherAge){
         Long sum = 0L;
-        //System.out.println(lowerAge + " and " + higherAge);
         for (int i = lowerAge; i<= higherAge; i++){
-            //System.out.println(i);
             sum += ageMap.get(i);
         }
         return sum;
@@ -218,6 +209,4 @@ public class GeographicHouseholdMetaData extends GeographicMetaData{
     public Long getSumAgePopulationFull() {
         return sumAgePopulationFull;
     }
-
-
 }

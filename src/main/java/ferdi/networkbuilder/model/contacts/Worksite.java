@@ -52,7 +52,6 @@ public class Worksite {
         if(infectious){
             double prop = config.getBaselineTransmissionProp() * config.getTransmissionRateWork();
             if(prop > config.getRandom().nextDouble()){
-                //System.out.println(" infect Worksite ");
                 employee.infect(config, ContactType.WORKPLACE);
             }
             daySummary.addContact(ContactType.WORKPLACE);

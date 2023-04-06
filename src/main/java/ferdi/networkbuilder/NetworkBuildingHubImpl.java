@@ -50,11 +50,9 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
 
         int maxAgents = metaConfig.getMaxAgents();
         Map<Integer,List<List<List<AgentCreationData>>>> agentCreationData = agentCreationDataController.buildAgentCreationData(metaLocal,maxAgents);
-        //printerController.printOut(agentCreationData,metaLocal);
 
         ModelFoundation modelFoundation = agentCreationController.createAgents(agentCreationData, metaConfig);
         relationCreationController.buildFriendships(modelFoundation,metaConfig);
-        //printerController.printOutRelationships(modelFoundation);
         relationCreationController.buildHouseHolds(modelFoundation,metaConfig);
 
         String pathWorksites = metaConfig.getPathDataWorksites();
@@ -67,8 +65,6 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
         relationCreationController.buildRelatives(modelFoundation,metaConfig);
 
         NetworkSummaryData summary = networkSummaryCreationController.createNetworkSummary(modelFoundation,metaConfig);
-        //System.out.println(summary);
-        //System.out.println(rawDataWorksites);
         return modelFoundation.getFullMap();
     }
 }

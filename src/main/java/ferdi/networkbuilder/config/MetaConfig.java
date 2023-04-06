@@ -14,7 +14,6 @@ import java.util.Random;
 @Configuration
 @ConfigurationProperties(prefix = "default")
 public class MetaConfig {
-
     private int runCounter = 0;
     private int runs;
     private boolean test_multiple;
@@ -145,8 +144,7 @@ public class MetaConfig {
     private double isolationProbabilityNoTest;
     private double isolationProbabilityCTAAndRelativesTest;
     private double isolationProbabilityCTAAndRelativesNoTest;
-    private double testProbabilityILI;
-    private double ILIFracPerWeek;
+
     private boolean testPrio;
 
 
@@ -432,22 +430,6 @@ public class MetaConfig {
 
     public void setIsolationProbabilityCTAAndRelativesNoTest(double isolationProbabilityCTAAndRelativesNoTest) {
         this.isolationProbabilityCTAAndRelativesNoTest = isolationProbabilityCTAAndRelativesNoTest;
-    }
-
-    public double getTestProbabilityILI() {
-        return testProbabilityILI;
-    }
-
-    public void setTestProbabilityILI(double testProbabilityILI) {
-        this.testProbabilityILI = testProbabilityILI;
-    }
-
-    public double getILIFracPerWeek() {
-        return ILIFracPerWeek;
-    }
-
-    public void setILIFracPerWeek(double ILIFracPerWeek) {
-        this.ILIFracPerWeek = ILIFracPerWeek;
     }
 
     public int getTestRefreshingDays() {

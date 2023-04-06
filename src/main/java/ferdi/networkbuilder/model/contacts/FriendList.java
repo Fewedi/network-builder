@@ -30,7 +30,6 @@ public class FriendList extends ArrayList<Agent> {
             for(int i = 0; i < amount; i++){
                 if(prop > config.getRandom().nextDouble()){
                     this.get(i).infect(config, ContactType.FRIEND);
-                    //System.out.println(" infect friend ");
                 }
                 l.add(this.get(i));
             }

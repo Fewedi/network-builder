@@ -51,7 +51,6 @@ public class SchoolClass {
 
                     if (prop > config.getRandom().nextDouble()) {
                         students.get(i).infect(config, ContactType.SCHOOL);
-                        //System.out.println(" infect school");
                     }
                     l.add(students.get(i));
                     daySummary.addContact(ContactType.SCHOOL);
@@ -61,7 +60,6 @@ public class SchoolClass {
                 if (me) {
                     if (prop > config.getRandom().nextDouble()) {
                         students.get(amount).infect(config, ContactType.SCHOOL);
-                        //System.out.println(" infect school");
                     }
                     l.add(students.get(amount));
                     daySummary.addContact(ContactType.SCHOOL);
@@ -73,14 +71,12 @@ public class SchoolClass {
             for (int i = 0; i < amount; i++) {
                 if (!students.get(i).equals(himSelf)) {
                     l.add(students.get(i));
-
                     daySummary.addContact(ContactType.SCHOOL);
                 } else {
                     me = true;
                 }
                 if (me) {
                     l.add(students.get(amount));
-
                     daySummary.addContact(ContactType.SCHOOL);
                 }
             }

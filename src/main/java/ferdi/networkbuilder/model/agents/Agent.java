@@ -3,18 +3,16 @@ package ferdi.networkbuilder.model.agents;
 import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.metadata.ContactType;
 import ferdi.networkbuilder.metadata.DaySummary;
-import ferdi.networkbuilder.model.contacts.FriendList;
-import ferdi.networkbuilder.model.contacts.HouseholdList;
-import ferdi.networkbuilder.model.contacts.RelativesList;
-import ferdi.networkbuilder.model.contacts.SchoolClass;
-import ferdi.networkbuilder.model.contacts.Worksite;
-import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
+import ferdi.networkbuilder.model.contacts.*;
 import org.apache.commons.math3.distribution.PoissonDistribution;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-public abstract class Agent implements Serializable {
+public class Agent implements Serializable {
 
     private Health health;
     private final int id;
@@ -76,7 +74,6 @@ public abstract class Agent implements Serializable {
     }
 
     public void meetAndInfect(List<Agent> agentsInArea, MetaConfig config, int day, DaySummary daySummary) {
-        //System.out.println(" -------------------- id: " + id + " infected " + health.isInfectedCurrently());
         if(!health.getHealthStatus().equals(HealthStatus.SEVERE_HOS)){
             if(usesCTA){
                 List<Agent> todaysContacts = new ArrayList<>();
@@ -149,13 +146,11 @@ public abstract class Agent implements Serializable {
         PoissonDistribution poissonDistribution = new PoissonDistribution(lambda);
         int amount = poissonDistribution.sample();
         Collections.shuffle(agentsInArea,config.getRandom());
-        //System.out.println(lambda + " "+ amount);
         if(health.isInfectious()) {
             double prop = config.getBaselineTransmissionProp() * factor;
             for(int i = 0; i < amount && i < agentsInArea.size(); i++){
                 if(prop > config.getRandom().nextDouble()){
                     agentsInArea.get(i).infect(config, contactType);
-                    //System.out.println(" infect random");
                 }
                 l.add(agentsInArea.get(i));
                 daySummary.addContact(contactType);
@@ -196,7 +191,6 @@ public abstract class Agent implements Serializable {
             }
         }else {
             testCenter.testedNeg();
-           // System.out.println(id +" tested neg");
         }
     }
 
@@ -231,12 +225,9 @@ public abstract class Agent implements Serializable {
     }
     public void nextDay(MetaConfig config, TestCenter testCenter, DaySummary daySummary){
         if(daysUntilTestArrives > 0){
-         //   System.out.println(id + ", daysUntilTestArrives 1: " + daysUntilTestArrives);
             daysUntilTestArrives--;
-            //System.out.println(id + " "+daysUntilTestArrives);
         }
         if (daysUntilTestArrives == 0){
-        //    System.out.println(id + ", daysUntilTestArrives 2: " + daysUntilTestArrives);
             reactToTest(testCenter,config);
         }
         if(waitUntilSymptomsGone){
@@ -258,18 +249,16 @@ public abstract class Agent implements Serializable {
     public void cTAContactIsPositive(MetaConfig config, TestCenter testCenter){
         if(usesCTA){
             testBecauseContact(config,testCenter);
-        }//System.out.println(id + " via CTA: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
+        }
     }
 
     public void relativeIsPositive(MetaConfig config, TestCenter testCenter){
         testBecauseContact(config,testCenter);
-        //System.out.println(id + " via relative: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
     }
 
     public void householdMemberIsPositive(MetaConfig config, TestCenter testCenter){
         selfIsolateContact(config);
         testBecauseContact(config,testCenter);
-        //System.out.println(id + " via household: " + toString() +" --- "+ getHealth() + " --- " + toStringIsolation()+ " --- " +toStringHousehold());
     }
 
 
@@ -282,9 +271,6 @@ public abstract class Agent implements Serializable {
         if((!health.getHealthStatus().equals(HealthStatus.RECOVERED) || config.isDoITestIfIRecovered())
                 && daysUntilTestArrives == -1
                 && (config.isDoITestIfIAlreadyTestedPositive() || !didITestPositiveInMyLife)){
-
-            //System.out.println(id+ ": test caused symptoms");
-            //get tested
             testCenter.testBecauseSymptoms(this);
         }
     }
@@ -292,8 +278,6 @@ public abstract class Agent implements Serializable {
         if((!health.getHealthStatus().equals(HealthStatus.RECOVERED) || config.isDoITestIfIRecovered())
                 && daysUntilTestArrives == -1
                 && (config.isDoITestIfIAlreadyTestedPositive() || !didITestPositiveInMyLife)){
-            //get tested
-            //System.out.println(id+ ": test caused contact");
             testCenter.testBecauseContact(this);
         }
     }
@@ -301,27 +285,20 @@ public abstract class Agent implements Serializable {
     private void selfIsolateContact(MetaConfig config) {
         double prob = config.getIsolationProbabilityCTAAndRelativesNoTest();
         if(withCertainProb(config.getRandom(), prob)){
-            //System.out.println(id + " self-isolated because of contact " + config.getIsolationTimeIfContact());
             isolated = true;
             waitUntilSymptomsGone = false;
             timeToIsolate = config.getIsolationTimeIfContact();
-        }else {
-            //System.out.println(id + " not self-isolated because of contact");
         }
     }
 
     private void selfIsolateTest(MetaConfig config) {
         double prob = config.getIsolationProbabilityTest();
         if(withCertainProb(config.getRandom(), prob)){
-            //System.out.println(id + " self-isolated because of test");
             isolated = true;
             waitUntilSymptomsGone = true;
-        }else {
-            //System.out.println(id + " not self-isolated because of test");
         }
     }
     private void selfIsolateSchool(MetaConfig config) {
-        //System.out.println(id + " self-isolated because of school");
         isolated = true;
         waitUntilSymptomsGone = false;
         timeToIsolate = config.getIsolationTimeIfContact();
@@ -331,14 +308,10 @@ public abstract class Agent implements Serializable {
     public void dealWithSymptomsFromCovid(MetaConfig config, TestCenter testCenter) {
         if(health.doIHaveSymptoms() && !symptoms){
             symptoms = true;
-            //react to Symptoms from Covid
             testBecauseSymptoms(config,testCenter);
         }else if (!health.doIHaveSymptoms() && symptoms){
             symptoms = false;
             isolated = false;
-        }
-        if(daysUntilTestArrives != -1){
-            //System.out.println(id + " 2 -------------------------------------------------------------------------DaysUntilTestsArrive: " + daysUntilTestArrives);
         }
     }
 
@@ -528,4 +501,7 @@ public abstract class Agent implements Serializable {
     }
 
 
+    public boolean usesCTA() {
+        return usesCTA;
+    }
 }

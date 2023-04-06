@@ -27,6 +27,7 @@ public class NetworkBuilderApplication {
                 forOneSeed(ctx);
             }
         }
+        System.out.println("--------------EVERYTHING DONE---------------");
     }
 
     private static void forOneSeed(ApplicationContext ctx){

@@ -22,14 +22,11 @@ public class RelativesList extends ArrayList<Agent> {
             double prop = config.getBaselineTransmissionProp() * config.getTransmissionRateRelatives();
             if(prop > config.getRandom().nextDouble()){
                 relative.infect(config, ContactType.RELATIONS);
-                //System.out.println(" infect relative");
             }
         }
         List<Agent> l =  new ArrayList<>();
         l.add(relative);
         daySummary.addContact(ContactType.RELATIONS);
-
-        //System.out.println("  relative" + this);
         return l;
     }
 }

@@ -34,10 +34,12 @@ public class Health implements Serializable {
 
     public boolean doIHaveSymptoms(){
         switch (healthStatus) {
-            case MILD, SEVERE, SEVERE_HOS:{
+            case MILD, SEVERE, SEVERE_HOS -> {
                 return true;
-            } default :
+            }
+            default -> {
                 return false;
+            }
         }
     }
 
@@ -242,10 +244,7 @@ public class Health implements Serializable {
     }
 
     public boolean infect(int age, MetaConfig config) {
-        //System.out.print(" try to infect ");
         if(healthStatus.equals(HealthStatus.SUSCEPTIBLE)){
-            //System.out.println(" infect ");
-
             healthStatus = HealthStatus.INCUBATION;
             generateDays(healthStatus,config,age);
             return true;

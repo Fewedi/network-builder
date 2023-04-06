@@ -1,7 +1,6 @@
 package ferdi.networkbuilder.controller;
 
 import ferdi.networkbuilder.Simulator;
-import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.AgentMap;
 import org.springframework.context.ApplicationContext;
