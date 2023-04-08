@@ -3,7 +3,7 @@ package ferdi.networkbuilder.model.collections;
 import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.contacts.SchoolClass;
 import ferdi.networkbuilder.model.contacts.Worksite;
-import ferdi.networkbuilder.model.groups.WorksiteType;
+import ferdi.networkbuilder.model.contacts.WorksiteType;
 
 import java.util.ArrayList;
 import java.util.List;

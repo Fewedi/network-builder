@@ -2,7 +2,7 @@ package ferdi.networkbuilder.services.metadatacreation;
 
 import ferdi.networkbuilder.config.MetaConfig;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
-import ferdi.networkbuilder.model.groups.WorksiteType;
+import ferdi.networkbuilder.model.contacts.WorksiteType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

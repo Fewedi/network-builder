@@ -21,6 +21,8 @@ public class NetworkBuildingHubImpl implements NetworkBuildingHub{
     @Override
     public AgentMap<Agent> buildNetwork(ApplicationContext ctx) {
 
+        System.out.println("--------BUILD NETWORK----------------------------------------------------------------------------------------------------------------------");
+
         MetaConfig metaConfig = (MetaConfig) ctx.getBean("metaConfig");
         ExtractionController extractionController = (ExtractionController) ctx.getBean("extractionController");
         MetaDataCreationHouseholdController metaDataCreationController = (MetaDataCreationHouseholdController) ctx.getBean("metaDataCreationHouseholdController");

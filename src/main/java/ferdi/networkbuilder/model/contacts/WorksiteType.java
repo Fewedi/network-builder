@@ -1,4 +1,4 @@
-package ferdi.networkbuilder.model.groups;
+package ferdi.networkbuilder.model.contacts;
 
 public class WorksiteType {
 

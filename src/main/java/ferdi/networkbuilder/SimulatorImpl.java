@@ -1,7 +1,6 @@
 package ferdi.networkbuilder;
 
 import ferdi.networkbuilder.config.MetaConfig;
-import ferdi.networkbuilder.controller.FinalCSVCreationController;
 import ferdi.networkbuilder.controller.InitializationController;
 import ferdi.networkbuilder.metadata.DaySummary;
 import ferdi.networkbuilder.metadata.RunSummary;
@@ -23,11 +22,11 @@ public class SimulatorImpl implements Simulator{
     public void simulate(AgentMap<Agent> agentMap,ApplicationContext ctx) {
         InitializationController initializationController = (InitializationController) ctx.getBean("initializationController");
         MetaConfig config = (MetaConfig) ctx.getBean("metaConfig");
-        if(!config.isTest_multiple()){
+        //if(!config.isTest_multiple()){
             runOneSimulation(agentMap,initializationController, config);
-        }else {
-            runMultipleSimulationCTA(agentMap,initializationController, config);
-        }
+        //}else {
+        //    runMultipleSimulationCTA(agentMap,initializationController, config);
+        //}
     }
 
     private void runMultipleSimulationCTA(AgentMap<Agent> agentMap, InitializationController initializationController, MetaConfig config) {
@@ -77,7 +76,12 @@ public class SimulatorImpl implements Simulator{
         int week = 7;
         int weekday = 0;
         System.out.println();
-        System.out.println("--------NEW RUN " +config.getRunCounter() +  " WITH: " + dayList.getRunName() + "-------------------------------------------");
+
+        if(config.isTestTransmissionProbability()){
+            System.out.println("--------NEW RUN " +config.getRunCounter() +  " WITH: TRANSMISSION PROBABILITY: " + config.getBaselineTransmissionProp() + "-------------------------------------------");
+        }else {
+            System.out.println("--------NEW RUN " +config.getRunCounter() +  " WITH: " + dayList.getRunName() + "-------------------------------------------");
+        }
 
         for( int day = 1; day <= config.getDays() ; day++){
             weekday = (weekday % week) +1;

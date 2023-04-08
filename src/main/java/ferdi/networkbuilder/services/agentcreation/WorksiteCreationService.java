@@ -5,7 +5,7 @@ import ferdi.networkbuilder.model.agents.Agent;
 import ferdi.networkbuilder.model.collections.ModelFoundation;
 import ferdi.networkbuilder.model.contacts.Worksite;
 import ferdi.networkbuilder.model.contacts.WorksiteCloseColleagueGroup;
-import ferdi.networkbuilder.model.groups.WorksiteType;
+import ferdi.networkbuilder.model.contacts.WorksiteType;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 import org.springframework.stereotype.Service;
 

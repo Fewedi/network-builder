@@ -44,6 +44,8 @@ public class MetaConfig {
     private double initialAmountRecovered;
     private double initialAmountInfected;
 
+    private boolean testTransmissionProbability;
+
     private double proportionOfPopWithILIPerDay;
     private double proportionOfTestingBecauseILI;
 
@@ -147,6 +149,7 @@ public class MetaConfig {
 
     private boolean testPrio;
 
+    private List<Double> baselineTransmissionPropList;
 
     private int encountersPerWeekRandomYoung;
     private double encountersPerWeekRandomOld;
@@ -220,6 +223,14 @@ public class MetaConfig {
         return toTestTestCapacity;
     }
 
+    public boolean isTestTransmissionProbability() {
+        return testTransmissionProbability;
+    }
+
+    public void setTestTransmissionProbability(boolean testTransmissionProbability) {
+        this.testTransmissionProbability = testTransmissionProbability;
+    }
+
     public void setToTestTestCapacity(boolean toTestTestCapacity) {
         this.toTestTestCapacity = toTestTestCapacity;
     }
@@ -238,6 +249,14 @@ public class MetaConfig {
 
     public void setToTestTestPriority(boolean toTestTestPriority) {
         this.toTestTestPriority = toTestTestPriority;
+    }
+
+    public List<Double> getBaselineTransmissionPropList() {
+        return baselineTransmissionPropList;
+    }
+
+    public void setBaselineTransmissionPropList(List<Double> baselineTransmissionPropList) {
+        this.baselineTransmissionPropList = baselineTransmissionPropList;
     }
 
     public boolean isTest_multiple() {
@@ -1202,5 +1221,9 @@ public class MetaConfig {
 
     public void setTransmissionReductionHouseholdIsolated(double transmissionReductionHouseholdIsolated) {
         this.transmissionReductionHouseholdIsolated = transmissionReductionHouseholdIsolated;
+    }
+
+    public int getSeed() {
+        return seed;
     }
 }

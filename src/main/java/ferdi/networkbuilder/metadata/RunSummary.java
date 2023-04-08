@@ -29,7 +29,12 @@ public class RunSummary {
 
     public void create(MetaConfig config) {
         String path = config.getPathOutput();
-        String dir = "/users-testcap-prio_" + cTAusers + "-" + testCapacaty + "-" + prio ;
+        String dir = "";
+        //if(config.isTest_multiple()){
+            dir = "/users-testcap-prio_" + cTAusers + "-" + testCapacaty + "-" + prio ;
+        if(config.isTestTransmissionProbability()) {
+            dir = "/probability_" + config.getBaselineTransmissionProp();
+        }
         File file = new File(path + dir);
         if (!file.exists()) { // check if directory does not exist
             file.mkdirs(); // create directory and its parent directories if they do not exist

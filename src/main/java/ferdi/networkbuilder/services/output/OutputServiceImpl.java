@@ -247,7 +247,7 @@ public class OutputServiceImpl implements OutputService{
             }
         }
         summary.setLivesInCouple(counterCouple);
-        summary.setLivesInCouple(counterSingle);
+        summary.setLivesAsSingle(counterSingle);
         summary.setLivesWithKids(counterKids);
         summary.setLivesWithoutKids(counterNoKids);
     }
