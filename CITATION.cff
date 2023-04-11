@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: Network-Builder
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Ferdinand
+    family-names: Lange
+    email: ferdi.lange@acor.de
+repository-code: 'https://github.com/Fewedi/network-builder'
+url: 'https://citation-file-format.github.io/'
