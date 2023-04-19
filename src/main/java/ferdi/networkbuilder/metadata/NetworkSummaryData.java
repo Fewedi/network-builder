@@ -37,11 +37,13 @@ public class NetworkSummaryData {
 
     private Map<Short,Integer> demographic;
 
+    private int seed;
 
     @Override
     public String toString() {
         return "SUMMARY OF NETWORK DATA" +
                 "\n ---------------------------------------------------------------------------------------------------------------" +
+                "\n seed                                " + seed +
                 "\n amount of Agents:                   " + agentCount +
                 "\n amount of Minors:                   " + minors +
                 "\n amount of Adults:                   " + adults +
@@ -115,6 +117,14 @@ public class NetworkSummaryData {
 
     public void setLivesInCouple(int livesInCouple) {
         this.livesInCouple = livesInCouple;
+    }
+
+    public int getSeed() {
+        return seed;
+    }
+
+    public void setSeed(int seed) {
+        this.seed = seed;
     }
 
     public int getLivesAsSingle() {
@@ -264,4 +274,5 @@ public class NetworkSummaryData {
     public void setAdults(int adults) {this.adults = adults;}
 
     public int getAdults() {return adults;}
+
 }

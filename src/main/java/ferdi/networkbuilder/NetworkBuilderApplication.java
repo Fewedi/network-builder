@@ -20,8 +20,12 @@ public class NetworkBuilderApplication {
         ApplicationContext ctx = SpringApplication.run(NetworkBuilderApplication.class, args);
 
         MetaConfig metaConfig = (MetaConfig) ctx.getBean("metaConfig");
-        if(metaConfig.isTestTransmissionProbability()){
-            testTransmissionProb(ctx,metaConfig,metaConfig.getSeed());
+        if(metaConfig.isTestTransmissionProbability()) {
+            testTransmissionProb(ctx, metaConfig, metaConfig.getSeed());
+        }else if(metaConfig.isTestPopulation()){
+            testPopulationSize(ctx,metaConfig, metaConfig.getSeed());
+        }else if(metaConfig.isTestTestingBehaviour()){
+            testTestingBehaviour(ctx,metaConfig, metaConfig.getSeed());
         }else {
             if(metaConfig.getRuns() == 1){
                 forOneSeed(ctx, metaConfig,metaConfig.getSeed());
@@ -95,7 +99,42 @@ public class NetworkBuilderApplication {
         List<Double> rates = config.getBaselineTransmissionPropList();
         for (int i = 0; i< rates.size(); i++){
             config.setBaselineTransmissionProp(rates.get(i));
+            testOnceOderMultiple(ctx,config,seed);
+        }
+    }
+
+    private static void testPopulationSize(ApplicationContext ctx, MetaConfig config, int seed) {
+        List<Integer> sizes = config.getMaximalPopulationList();
+        for (int i = 0; i< sizes.size(); i++){
+            config.setMaximalPopulation(sizes.get(i));
+            testOnceOderMultiple(ctx,config,seed);
+        }
+    }
+
+    private static void testTestingBehaviour(ApplicationContext ctx, MetaConfig config, int seed) {
+        config.setDoITestIfIAlreadyTestedPositive(true);
+        config.setDoITestIfIRecovered(true);
+        testOnceOderMultiple(ctx,config,seed);
+        config.setDoITestIfIAlreadyTestedPositive(true);
+        config.setDoITestIfIRecovered(false);
+        testOnceOderMultiple(ctx,config,seed);
+        config.setDoITestIfIAlreadyTestedPositive(false);
+        config.setDoITestIfIRecovered(true);
+        testOnceOderMultiple(ctx,config,seed);
+        config.setDoITestIfIAlreadyTestedPositive(false);
+        config.setDoITestIfIRecovered(false);
+        testOnceOderMultiple(ctx,config,seed);
+    }
+
+    private static void testOnceOderMultiple(ApplicationContext ctx, MetaConfig config, int seed){
+        if(config.getRuns() == 1){
             runOneSimulation(ctx, config, seed);
+        }else {
+            Random rng = new Random(seed);
+            for(int j = 1; j <= config.getRuns(); j++){
+                int seed1 = rng.nextInt();
+                runOneSimulation(ctx, config, seed1);
+            }
         }
     }
 }

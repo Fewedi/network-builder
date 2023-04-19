@@ -48,7 +48,7 @@ public class SchoolClassCreationService implements RelationCreationService{
             classesInArea.add(schoolClass);
             schoolClasses.put(areas.getKey(),classesInArea);
         }
-        System.out.println("School-classes created: " + classCounter + " for " + kidsCounter + " kids");
+        System.out.println("School classes created: " + classCounter + " for " + kidsCounter + " kids");
     }
 
     private void addKidToClass(SchoolClass schoolClass, Agent kid) {
@@ -75,7 +75,7 @@ public class SchoolClassCreationService implements RelationCreationService{
             schoolClasses.put(areas.getKey(),classesInArea);
         }
         modelFoundation.setSchoolClasses(schoolClasses);
-        System.out.println("School-classes created: " + classCounter + " for " + kidsCounter + " kids");
+        System.out.println("School classes created: " + classCounter + " for " + kidsCounter + " kids");
     }
 
     private List<SchoolClass> kidsToClasses(List<Agent> kids, MetaConfig config) {

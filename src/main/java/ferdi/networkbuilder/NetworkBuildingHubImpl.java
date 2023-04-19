@@ -20,6 +20,7 @@ import java.util.Map;
 public class NetworkBuildingHubImpl implements NetworkBuildingHub{
     @Override
     public AgentMap<Agent> buildNetwork(ApplicationContext ctx) {
+        System.out.println();
 
         System.out.println("--------BUILD NETWORK----------------------------------------------------------------------------------------------------------------------");
 

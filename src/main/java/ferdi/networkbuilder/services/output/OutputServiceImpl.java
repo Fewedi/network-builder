@@ -261,6 +261,7 @@ public class OutputServiceImpl implements OutputService{
 
     private void setMinors(ModelFoundation modelFoundation, NetworkSummaryData summary, MetaConfig config) {
         summary.setMinors(modelFoundation.getAgeMapRange(0,config.getWorkingAge()-1).size());
+        summary.setSeed(config.getSeed());
     }
 
     private void setAgentCount(ModelFoundation modelFoundation, NetworkSummaryData summary) {

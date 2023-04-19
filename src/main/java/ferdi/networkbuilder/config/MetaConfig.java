@@ -57,9 +57,13 @@ public class MetaConfig {
     private int livesWithParentsMaxAge;
 
     private int maxForHighestWorksiteSizeIsNTimesOfMin;
-    private final Random random;
-    private final RandomGenerator randomGenerator;
+    private Random random;
+    private RandomGenerator randomGenerator;
     private int seed;
+
+
+    private boolean testPopulation;
+    private List<Integer> maximalPopulationList;
 
     private int workingAge;
 
@@ -132,6 +136,7 @@ public class MetaConfig {
     private double severeGammaK;
     private double severeGammaGamma;
 
+    private boolean testTestingBehaviour;
 
     private String severehosDist;
     private List<Integer> severehosNormalDurationAges;
@@ -198,10 +203,33 @@ public class MetaConfig {
 
     public void setSeed(int seed) {
         this.seed = seed;
-        random.setSeed(seed);
-        randomGenerator.setSeed(seed);
+        random = new Random(seed);
+        randomGenerator = new MersenneTwister(seed);
     }
 
+    public boolean isTestPopulation() {
+        return testPopulation;
+    }
+
+    public void setTestPopulation(boolean testPopulation) {
+        this.testPopulation = testPopulation;
+    }
+
+    public List<Integer> getMaximalPopulationList() {
+        return maximalPopulationList;
+    }
+
+    public void setMaximalPopulationList(List<Integer> maximalPopulationList) {
+        this.maximalPopulationList = maximalPopulationList;
+    }
+
+    public boolean isTestTestingBehaviour() {
+        return testTestingBehaviour;
+    }
+
+    public void setTestTestingBehaviour(boolean testTestingBehaviour) {
+        this.testTestingBehaviour = testTestingBehaviour;
+    }
 
     public int getRuns() {
         return runs;

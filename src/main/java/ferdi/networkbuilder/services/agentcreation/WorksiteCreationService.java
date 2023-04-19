@@ -49,7 +49,7 @@ public class WorksiteCreationService implements RelationCreationService{
             worksiteSizeCounter += worksite.getEmployees().size();
             modelFoundation.getWorksites().add(worksite);
         }
-        System.out.println("Worksites crated: " + worksiteCounter + ", with working people: " + workingPeople + ", with people in worksites: " + worksiteSizeCounter + ", mean worksites size: " + ((double) worksiteSizeCounter / (double) worksiteCounter));
+        System.out.println("Worksites created: " + worksiteCounter + ", with working people: " + workingPeople + ", with people in worksites: " + worksiteSizeCounter + ", mean worksites size: " + ((double) worksiteSizeCounter / (double) worksiteCounter));
         setCloseColegueGroups(modelFoundation.getWorksites(),config);
     }
 
@@ -76,7 +76,7 @@ public class WorksiteCreationService implements RelationCreationService{
                 groupCounter++;
             }
         }
-        System.out.println("Groups in Worksites crated: " + groupCounter + ", with working people: " + agentCounter + ", mean group size: " + ((double) agentCounter / (double) groupCounter));
+        System.out.println("Groups in Worksites created: " + groupCounter + ", with working people: " + agentCounter + ", mean group size: " + ((double) agentCounter / (double) groupCounter));
 
     }
 

@@ -30,14 +30,19 @@ public class RunSummary {
     public void create(MetaConfig config) {
         String path = config.getPathOutput();
         String dir = "";
-        //if(config.isTest_multiple()){
-            dir = "/users-testcap-prio_" + cTAusers + "-" + testCapacaty + "-" + prio ;
+        dir = "/users-testcap-prio_" + cTAusers + "-" + testCapacaty + "-" + prio ;
         if(config.isTestTransmissionProbability()) {
             dir = "/probability_" + config.getBaselineTransmissionProp();
+        }else if (config.isTestPopulation()) {
+            dir = "/population_" + config.getMaxAgents();
+        }else if (config.isTestTestingBehaviour()) {
+            dir = "/allreadyinfected-allreadytested_" + config.isDoITestIfIRecovered() + "-" + config.isDoITestIfIAlreadyTestedPositive();
+        }else if(!config.isTest_multiple()){
+            dir = "/one_run";
         }
         File file = new File(path + dir);
-        if (!file.exists()) { // check if directory does not exist
-            file.mkdirs(); // create directory and its parent directories if they do not exist
+        if (!file.exists()) {
+            file.mkdirs();
         }
         boolean created = false;
         int c = 1;

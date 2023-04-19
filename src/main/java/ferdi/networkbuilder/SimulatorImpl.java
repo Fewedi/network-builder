@@ -98,6 +98,7 @@ public class SimulatorImpl implements Simulator{
             }
         }
         dayList.create(config);
+        System.out.println("--------RUN " +config.getRunCounter() + " IS DONE-----------------------------------------------------------------------");
         config.addRun();
     }
 

@@ -19,7 +19,7 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
         List<GeographicHouseholdMetaData> valuesList = new ArrayList<>(metaData.values());
         if(valuesList.get(0).getSumAgePopulationFull() > maxAgents){
             agentCount += maxAgents;
-            System.out.println("Area "+ valuesList.get(0).getCduId()+ " size: " + valuesList.get(0).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
+            System.out.println("Area "+ valuesList.get(0).getCduId()+ " size: " + valuesList.get(0).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount);
 
             map.put(valuesList.get(0).getCduId().intValue(),buildForArea(valuesList.get(0)));
             return map;
@@ -30,7 +30,7 @@ public class AgentCreationDataServiceImpl implements AgentCreationDataService{
 
             agentCount += valuesList.get(i).getSumAgePopulationFull();
             maxAgents -= valuesList.get(i).getSumAgePopulationFull().intValue();
-            System.out.println("Area "+ valuesList.get(i).getCduId()+ " size: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount + ", maxAgents: " + maxAgents);
+            System.out.println("Area "+ valuesList.get(i).getCduId()+ " size: " + valuesList.get(i).getSumAgePopulationFull().intValue() + ", agentCount: " + agentCount);
             map.put(valuesList.get(i).getCduId().intValue(),buildForArea(valuesList.get(i)));
             i++;
         }
