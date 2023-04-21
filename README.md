@@ -30,6 +30,32 @@ Passen wie bei Bedarf auch weitere Parameter an.
 
 Wenn "**----------EVERYTHING DONE----------**" ausgegeben wird, ist die Simulation beendet und das Programm kann gestoppt werden. Die Resultate sind je nach Spezifikation in einem oder mehreren Ordnern im Ordner Output zu finden.
 
+## DATENGENERIERUNG
+
+Die Daten, die das Modell verwendet um die Haushalts- und Altersstruktur der Agenten zu generieren stammt von: http://infuse.ukdataservice.ac.uk/
+
+### Generierung Daten
+- 1: Gehe auf **2011 Census data UK**
+- 2: Gehe auf **Geography**
+- 3: Gehe aufs **+** von **Local Authorities (32 areas)** bei **Scottland**
+- 4: Gehe aufs **+** von **Glasgow City**
+- 5: Wähle die Kästchen links neben **Glasgow City** und **Lower Super Output Areas and Data Zones (746 areas)** aus
+- 6: Wähle **Add** unten auf der Seite und bestätige it **Next**
+### bei Altersdaten
+- 7: Wähle Kästchen **Age** und bestätige mit **Next**
+- 8: Wähle alle 100 Kästchen nach dem Schema **Age under 1**, **Age 1**, **Age 2**, **Age 3**, **Age 4**, **Age 5** ... , **Age 99**, **Age 100 and over** (nicht die kästchen Age a to b)
+- 9: Wähle Kästchen **Persons** 
+- 10: kicke **Add** und bestätige mit **Next**
+- 11: klicke **Get the Data** und **Download Data**
+### bei Haushaltdaten
+- 7: Filtere links nach **Household type [E][S][W]** 
+- 8: Wähle Kästchen mit **• Age • Dependent children in household • Household type [E][S][W] • Population (usual residents)** und bestätige mit **Next**
+- 9: Wähle alle Kästchen unter **Age**
+- 10: Wähle die Kästchen **No dependent children in household** und **One or more dependent children in household**
+- 11: Wähle die Kästchen **Living in a couple household** und **Not living in a couple household**
+- 12: kicke **Add** und bestätige mit **Next**
+- 13: klicke **Get the Data** und **Download Data**
+
 ## VISUALISIERUNG
 
 Die Pythonskripte sollen den Output entsprechend der Darstellung in der Ausarbeitung visualisieren. Die Art der Visualisierungen hängt somit davon ab, welche der Konfigurationen **true** ist:
@@ -66,4 +92,3 @@ Es müssen im gleichen Ordner liegen:
 ##### 2: Durchführen des Skriptes
 Durchführen der main.py im Ordner:
 > python main.py
- 
